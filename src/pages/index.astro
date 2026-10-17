@@ -1,0 +1,43 @@
+---
+/**
+ * index.astro — COCOSORB Homepage
+ * Merakit semua section dalam urutan yang sudah ditentukan.
+ *
+ * Sections:
+ *   1. Hero
+ *   2. About & Mission
+ *   3. Products Showcase
+ *   4. How It Works
+ *   5. Testimonials
+ *
+ * Navbar & Footer diinjeksikan melalui named slots di BaseLayout.
+ */
+
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+import HeroSection        from '../components/sections/HeroSection.astro';
+import AboutSection       from '../components/sections/AboutSection.astro';
+import ProductsSection    from '../components/sections/ProductsSection.astro';
+import HowItWorksSection  from '../components/sections/HowItWorksSection.astro';
+import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+---
+
+<Layout
+  title="COCOSORB — Solusi Alami Pengendali Bau Berbasis Sirkular Lokal"
+  description="COCOSORB menggunakan arang aktif dari tempurung kelapa dalam wadah kriya UMKM lokal untuk menyerap bau secara alami — VOC-free, estetis, dan berkelanjutan."
+>
+  <!-- Navbar -->
+  <Navbar slot="nav" />
+
+  <!-- Main Sections -->
+  <HeroSection />
+  <AboutSection />
+  <ProductsSection />
+  <HowItWorksSection />
+  <TestimonialsSection />
+
+  <!-- Footer -->
+  <Footer slot="footer" />
+</Layout>

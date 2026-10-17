@@ -1,0 +1,366 @@
+/* ============================================================
+   COCOSORB — Global Design System
+   Team: Gaspol
+   Philosophy: "Form Follows Function with Organic Soul"
+   ============================================================ */
+
+@import "tailwindcss";
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+/* ── Tailwind v4: Design Tokens via @theme ─────────────────── */
+@theme {
+  /* --- Color Palette --- */
+  --color-canvas:         #F8F6F2; /* Natural Canvas — background utama */
+  --color-surface:        #FFFFFF; /* Clean Off-White — card/surface */
+  --color-charcoal:       #1F2124; /* Deep Charcoal — teks utama */
+  --color-charcoal-soft:  #3A3D42; /* Charcoal lebih lunak — teks sekunder */
+  --color-coconut:        #A48261; /* Warm Coconut — primary accent / CTA */
+  --color-coconut-dark:   #8A6B4E; /* Coconut lebih gelap — hover CTA */
+  --color-coconut-light:  #C4A882; /* Coconut lebih terang — subtle accent */
+  --color-sage:           #6E7F65; /* Muted Sage — eco label / secondary */
+  --color-sage-light:     #8FA584; /* Sage lebih terang */
+  --color-mist:           #E8E4DD; /* Off-white warm — divider / border */
+  --color-mist-dark:      #D4CFC6; /* Divider lebih gelap */
+
+  /* --- Typography Scale --- */
+  --font-serif:      "Lora", Georgia, serif;
+  --font-sans:       "Montserrat", system-ui, sans-serif;
+
+  /* --- Font Sizes --- */
+  --text-display:    clamp(2.5rem, 6vw, 4.5rem);
+  --text-h1:         clamp(2rem, 4.5vw, 3.5rem);
+  --text-h2:         clamp(1.5rem, 3vw, 2.5rem);
+  --text-h3:         clamp(1.25rem, 2.5vw, 1.875rem);
+  --text-h4:         clamp(1.1rem, 2vw, 1.375rem);
+  --text-body-lg:    1.125rem;
+  --text-body:       1rem;
+  --text-body-sm:    0.875rem;
+  --text-caption:    0.75rem;
+
+  /* --- Spacing Scale --- */
+  --space-section:   clamp(4rem, 10vw, 7rem); /* Vertical section padding */
+  --space-container: clamp(1.25rem, 5vw, 2rem); /* Horizontal container padding */
+
+  /* --- Border Radius --- */
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    16px;
+  --radius-xl:    24px;
+  --radius-pill:  999px;
+
+  /* --- Shadows --- */
+  --shadow-card:    0 2px 16px 0 rgba(31,33,36,0.07);
+  --shadow-card-hover: 0 8px 32px 0 rgba(31,33,36,0.12);
+  --shadow-cta:     0 4px 24px 0 rgba(164,130,97,0.25);
+
+  /* --- Transitions --- */
+  --ease-smooth:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast:  150ms;
+  --duration-base:  250ms;
+  --duration-slow:  400ms;
+}
+
+/* ── Base Reset & Defaults ─────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-canvas);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Typography Utilities ──────────────────────────────────── */
+.font-serif    { font-family: var(--font-serif); }
+.font-sans     { font-family: var(--font-sans); }
+
+.text-display  { font-size: var(--text-display); font-family: var(--font-serif); line-height: 1.1; letter-spacing: -0.02em; }
+.text-h1       { font-size: var(--text-h1);      font-family: var(--font-serif); line-height: 1.15; letter-spacing: -0.015em; }
+.text-h2       { font-size: var(--text-h2);      font-family: var(--font-serif); line-height: 1.2;  letter-spacing: -0.01em; }
+.text-h3       { font-size: var(--text-h3);      font-family: var(--font-serif); line-height: 1.3; }
+.text-h4       { font-size: var(--text-h4);      font-family: var(--font-sans);  font-weight: 600; line-height: 1.4; }
+.text-body-lg  { font-size: var(--text-body-lg); line-height: 1.75; }
+.text-body     { font-size: var(--text-body);    line-height: 1.7; }
+.text-body-sm  { font-size: var(--text-body-sm); line-height: 1.65; }
+.text-caption  { font-size: var(--text-caption); letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ── Layout Utilities ──────────────────────────────────────── */
+
+/* Container: max-width dengan horizontal padding responsif */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-container);
+}
+
+/* Section: vertical breathing room */
+.section {
+  padding-block: var(--space-section);
+}
+
+/* 12-column grid */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+/* ── Color Utilities ──────────────────────────────────────── */
+.bg-canvas    { background-color: var(--color-canvas); }
+.bg-surface   { background-color: var(--color-surface); }
+.bg-coconut   { background-color: var(--color-coconut); }
+.bg-sage      { background-color: var(--color-sage); }
+.bg-mist      { background-color: var(--color-mist); }
+
+.text-charcoal      { color: var(--color-charcoal); }
+.text-charcoal-soft { color: var(--color-charcoal-soft); }
+.text-coconut       { color: var(--color-coconut); }
+.text-sage          { color: var(--color-sage); }
+
+/* ── Component: CTA Button ─────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition:
+    background-color var(--duration-base) var(--ease-smooth),
+    box-shadow var(--duration-base) var(--ease-smooth),
+    transform var(--duration-fast) var(--ease-bounce);
+}
+
+.btn:hover  { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+/* Primary CTA — Warm Coconut */
+.btn-primary {
+  background-color: var(--color-coconut);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-cta);
+}
+.btn-primary:hover {
+  background-color: var(--color-coconut-dark);
+  box-shadow: 0 8px 32px 0 rgba(164,130,97,0.35);
+}
+
+/* Outline CTA */
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-coconut);
+  border-color: var(--color-coconut);
+}
+.btn-outline:hover {
+  background-color: var(--color-coconut);
+  color: var(--color-surface);
+}
+
+/* Ghost CTA — untuk background gelap */
+.btn-ghost {
+  background-color: rgba(255,255,255,0.12);
+  color: var(--color-surface);
+  border-color: rgba(255,255,255,0.4);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  background-color: rgba(255,255,255,0.22);
+}
+
+/* ── Component: Card ───────────────────────────────────────── */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: box-shadow var(--duration-base) var(--ease-smooth), transform var(--duration-base) var(--ease-smooth);
+}
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+/* ── Component: Section Label / Eyebrow ───────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-coconut);
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-coconut);
+  border-radius: var(--radius-pill);
+}
+
+/* ── Component: Eco Badge ──────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.badge-eco {
+  background-color: color-mix(in srgb, var(--color-sage) 15%, transparent);
+  color: var(--color-sage);
+  border: 1px solid color-mix(in srgb, var(--color-sage) 30%, transparent);
+}
+.badge-natural {
+  background-color: color-mix(in srgb, var(--color-coconut) 12%, transparent);
+  color: var(--color-coconut-dark);
+  border: 1px solid color-mix(in srgb, var(--color-coconut) 25%, transparent);
+}
+
+/* ── Component: Divider ────────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-mist);
+}
+
+/* ── Animations ────────────────────────────────────────────── */
+
+/* Fade-in-up: digunakan untuk reveal saat scroll */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Organic float — untuk elemen dekoratif */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Kelas animasi siap pakai */
+.animate-fade-in-up { animation: fadeInUp var(--duration-slow) var(--ease-smooth) both; }
+.animate-fade-in    { animation: fadeIn   var(--duration-slow) var(--ease-smooth) both; }
+.animate-scale-in   { animation: scaleIn  var(--duration-slow) var(--ease-smooth) both; }
+.animate-float      { animation: float 4s var(--ease-smooth) infinite; }
+
+/* Delay utilities */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ── Scroll-Reveal (Intersection Observer hook) ───────────── */
+/* Elemen dengan .reveal dimulai invisible, JS tambahkan .revealed */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--duration-slow) var(--ease-smooth),
+    transform var(--duration-slow) var(--ease-smooth);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.revealed.delay-100 { transition-delay: 100ms; }
+.reveal.revealed.delay-200 { transition-delay: 200ms; }
+.reveal.revealed.delay-300 { transition-delay: 300ms; }
+.reveal.revealed.delay-400 { transition-delay: 400ms; }
+
+/* ── Texture Overlays ──────────────────────────────────────── */
+/* Subtle grain texture untuk warmth organik */
+.texture-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Focus & Accessibility ─────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-coconut);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduce motion untuk pengguna yang prefer tidak ada animasi */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Responsive Breakpoints ────────────────────────────────── */
+/* Mobile-first: sm=640px, md=768px, lg=1024px, xl=1280px */
+@media (max-width: 768px) {
+  .grid-12 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}

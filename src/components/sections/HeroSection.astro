@@ -1,0 +1,456 @@
+---
+/**
+ * HeroSection — COCOSORB
+ * Elegant hero: logo prominent, headline serif, product placeholder, no emoji.
+ */
+import { BRAND, HERO, CONTACT } from '../../config/site';
+---
+
+<section id="hero" class="hero" aria-label="Halaman utama COCOSORB">
+  <!-- Decorative background -->
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__bg-orb hero__bg-orb--warm"></div>
+    <div class="hero__bg-orb hero__bg-orb--sage"></div>
+    <div class="hero__bg-lines"></div>
+  </div>
+
+  <div class="container hero__inner">
+
+    <!-- Left: Content -->
+    <div class="hero__content">
+
+      <!-- Logo mark -->
+      <div class="hero__logo-wrap animate-fade-in">
+        <img
+          src={BRAND.logoSrc}
+          alt={BRAND.logoAlt}
+          class="hero__logo"
+          width="220"
+          height="74"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero__headline animate-fade-in-up delay-100">
+        {HERO.headline.map((line, i) =>
+          i === HERO.headlineAccent
+            ? <em>{line}</em>
+            : <span>{line}</span>
+        )}
+      </h1>
+
+      <!-- Sub -->
+      <p class="hero__sub animate-fade-in-up delay-200">
+        {HERO.subheadline}
+      </p>
+
+      <!-- Badges -->
+      <div class="hero__badges animate-fade-in-up delay-300">
+        {HERO.badges.map(b => (
+          <span class="badge badge-natural">{b}</span>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="hero__cta animate-fade-in-up delay-400">
+        <a href={HERO.cta.primary.href} class="btn btn-primary" id="hero-cta-primary">
+          {HERO.cta.primary.label}
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path d="M2.5 7.5h10M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href={HERO.cta.secondary.href} class="btn btn-outline" id="hero-cta-secondary">
+          {HERO.cta.secondary.label}
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero__stats animate-fade-in delay-500">
+        {HERO.stats.map((stat, i) => (
+          <>
+            <div class="hero__stat">
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </div>
+            {i < HERO.stats.length - 1 && (
+              <div class="hero__stat-divider" aria-hidden="true"></div>
+            )}
+          </>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right: Product Visual -->
+    <div class="hero__visual animate-scale-in delay-200" aria-hidden="true">
+
+      <!-- Main product image placeholder -->
+      <div class="hero__product-frame">
+        <div class="hero__product-placeholder">
+          <img
+            src={BRAND.logoSrc}
+            alt=""
+            class="hero__product-logo-mark"
+            width="80"
+            height="80"
+          />
+          <p class="hero__product-placeholder-label">
+            Artisan Holder<br />
+            <span>Foto produk segera hadir</span>
+          </p>
+        </div>
+
+        <!-- Floating info cards — no emoji, pure type -->
+        <div class="hero__pill hero__pill--top animate-float">
+          <div class="hero__pill-dot hero__pill-dot--green"></div>
+          <span>Adsorpsi Aktif — Bukan Masking</span>
+        </div>
+
+        <div class="hero__pill hero__pill--bottom animate-float delay-300">
+          <div class="hero__pill-dot hero__pill-dot--warm"></div>
+          <span>Zero VOC · Aman untuk Keluarga</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll cue -->
+  <a href="#about" class="hero__scroll-cue" aria-label="Gulir ke bawah">
+    <div class="hero__scroll-mouse">
+      <div class="hero__scroll-wheel"></div>
+    </div>
+  </a>
+</section>
+
+<style>
+  /* ── Layout ──────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 76px;
+    overflow: hidden;
+    background-color: var(--color-canvas);
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    padding-block: var(--space-section);
+  }
+
+  /* ── Background ──────────────────────────────── */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero__bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .hero__bg-orb--warm {
+    width: min(60vw, 700px);
+    height: min(60vw, 700px);
+    background: radial-gradient(circle, rgba(164,130,97,0.12), transparent 70%);
+    top: -15%;
+    right: -8%;
+  }
+
+  .hero__bg-orb--sage {
+    width: min(40vw, 500px);
+    height: min(40vw, 500px);
+    background: radial-gradient(circle, rgba(110,127,101,0.08), transparent 70%);
+    bottom: -10%;
+    left: -5%;
+  }
+
+  /* Fine grid lines — organic paper feel */
+  .hero__bg-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(164,130,97,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(164,130,97,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* ── Content ─────────────────────────────────── */
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  /* Logo */
+  .hero__logo-wrap {
+    display: flex;
+  }
+
+  .hero__logo {
+    height: 56px;
+    width: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  /* Headline */
+  .hero__headline {
+    font-family: var(--font-serif);
+    font-size: var(--text-display);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--color-charcoal);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__headline span {
+    display: block;
+  }
+
+  .hero__headline em {
+    display: block;
+    font-style: italic;
+    color: var(--color-coconut);
+  }
+
+  /* Sub */
+  .hero__sub {
+    font-size: var(--text-body-lg);
+    color: var(--color-charcoal-soft);
+    line-height: 1.8;
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  /* Badges */
+  .hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* CTA row */
+  .hero__cta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Stats */
+  .hero__stats {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .hero__stat strong {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-coconut);
+    line-height: 1;
+  }
+
+  .hero__stat span {
+    font-size: var(--text-caption);
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-charcoal-soft);
+  }
+
+  .hero__stat-divider {
+    width: 1px;
+    height: 1.75rem;
+    background-color: var(--color-mist-dark);
+    flex-shrink: 0;
+  }
+
+  /* ── Visual (Right Column) ───────────────────── */
+  .hero__visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero__product-frame {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .hero__product-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #EDE8E0, #DDD5C8);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-mist);
+    box-shadow:
+      0 24px 64px rgba(31,33,36,0.1),
+      0 0 0 1px rgba(255,255,255,0.6) inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    transition: transform var(--duration-slow) var(--ease-smooth);
+  }
+
+  .hero__product-placeholder:hover {
+    transform: translateY(-6px);
+  }
+
+  .hero__product-logo-mark {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+  }
+
+  .hero__product-placeholder-label {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-sm);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--color-charcoal-soft);
+    text-align: center;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .hero__product-placeholder-label span {
+    display: block;
+    font-size: var(--text-caption);
+    font-weight: 400;
+    color: var(--color-mist-dark);
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+
+  /* Floating pills */
+  .hero__pill {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    background-color: rgba(255,255,255,0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-mist);
+    border-radius: var(--radius-pill);
+    padding: 0.625rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-charcoal);
+    box-shadow: 0 4px 16px rgba(31,33,36,0.08);
+    white-space: nowrap;
+  }
+
+  .hero__pill--top    { top: 10%;  right: -12%; }
+  .hero__pill--bottom { bottom: 14%; left: -12%; }
+
+  .hero__pill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .hero__pill-dot--green { background-color: var(--color-sage); }
+  .hero__pill-dot--warm  { background-color: var(--color-coconut); }
+
+  /* ── Scroll Cue ──────────────────────────────── */
+  .hero__scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0.5;
+    transition: opacity var(--duration-base) var(--ease-smooth);
+  }
+
+  .hero__scroll-cue:hover {
+    opacity: 1;
+  }
+
+  .hero__scroll-mouse {
+    width: 22px;
+    height: 36px;
+    border: 1.5px solid var(--color-charcoal-soft);
+    border-radius: var(--radius-pill);
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+  }
+
+  .hero__scroll-wheel {
+    width: 3px;
+    height: 8px;
+    background-color: var(--color-coconut);
+    border-radius: var(--radius-pill);
+    animation: scrollWheel 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollWheel {
+    0%   { opacity: 1; transform: translateY(0); }
+    75%  { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 0; }
+  }
+
+  /* ── Responsive ─────────────────────────────── */
+  @media (max-width: 1024px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .hero__visual { order: -1; }
+
+    .hero__product-frame { max-width: 280px; }
+
+    .hero__pill--top    { right: -4%; }
+    .hero__pill--bottom { left: -4%; }
+
+    .hero__sub, .hero__logo-wrap {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero__pill    { display: none; }
+    .hero__scroll-cue { display: none; }
+
+    .hero__headline {
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+  }
+</style>

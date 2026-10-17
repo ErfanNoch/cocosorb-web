@@ -1,0 +1,280 @@
+---
+/**
+ * Navbar — COCOSORB
+ * Logo image + clean links + mobile hamburger.
+ */
+import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
+---
+
+<header id="navbar" class="navbar">
+  <div class="container navbar__inner">
+
+    <!-- Logo -->
+    <a href="/" class="navbar__logo" aria-label={`${BRAND.name} — Halaman Utama`}>
+      <img
+        src={BRAND.logoSrc}
+        alt={BRAND.logoAlt}
+        class="navbar__logo-img"
+        width="120"
+        height="40"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="navbar__nav" aria-label="Navigasi Utama">
+      {NAV_LINKS.map(link => (
+        <a href={link.href} class="navbar__link">{link.label}</a>
+      ))}
+    </nav>
+
+    <!-- Actions -->
+    <div class="navbar__actions">
+      <a
+        href={CONTACT.whatsapp.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary btn--sm"
+        id="nav-cta"
+      >
+        Beli Sekarang
+      </a>
+
+      <!-- Hamburger -->
+      <button
+        id="nav-toggle"
+        class="navbar__hamburger"
+        aria-label="Buka menu navigasi"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="navbar__mobile" aria-hidden="true" role="dialog" aria-label="Menu navigasi">
+    <nav>
+      {NAV_LINKS.map(link => (
+        <a href={link.href} class="navbar__mobile-link">{link.label}</a>
+      ))}
+      <a
+        href={CONTACT.whatsapp.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary navbar__mobile-cta"
+      >
+        Beli Sekarang
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* ── Base ────────────────────────────────────── */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition:
+      background-color 300ms var(--ease-smooth),
+      box-shadow 300ms var(--ease-smooth),
+      backdrop-filter 300ms var(--ease-smooth);
+  }
+
+  .navbar.scrolled {
+    background-color: rgba(248, 246, 242, 0.9);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    box-shadow: 0 1px 0 var(--color-mist), 0 4px 32px rgba(31,33,36,0.05);
+  }
+
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+    gap: 2rem;
+  }
+
+  /* ── Logo ───────────────────────────────────── */
+  .navbar__logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar__logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    /* Blend with canvas so logo background disappears */
+    mix-blend-mode: multiply;
+  }
+
+  /* ── Nav Links ──────────────────────────────── */
+  .navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+  }
+
+  .navbar__link {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-charcoal-soft);
+    text-decoration: none;
+    padding-block: 0.25rem;
+    position: relative;
+    transition: color var(--duration-base) var(--ease-smooth);
+  }
+
+  .navbar__link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-coconut);
+    transition: width var(--duration-base) var(--ease-smooth);
+  }
+
+  .navbar__link:hover {
+    color: var(--color-charcoal);
+  }
+
+  .navbar__link:hover::after {
+    width: 100%;
+  }
+
+  /* ── Actions ────────────────────────────────── */
+  .navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  .btn--sm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Hamburger ──────────────────────────────── */
+  .navbar__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.375rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .navbar__hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background-color: var(--color-charcoal);
+    border-radius: var(--radius-pill);
+    transition: all var(--duration-base) var(--ease-smooth);
+    transform-origin: center;
+  }
+
+  .navbar__hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(4.5px, 4.5px);
+  }
+  .navbar__hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .navbar__hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(4.5px, -4.5px);
+  }
+
+  /* ── Mobile Menu ────────────────────────────── */
+  .navbar__mobile {
+    display: none;
+    flex-direction: column;
+    padding: 1.5rem var(--space-container) 2.5rem;
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-mist);
+  }
+
+  .navbar__mobile nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .navbar__mobile-link {
+    display: block;
+    padding: 1rem 0;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-charcoal);
+    border-bottom: 1px solid var(--color-mist);
+    text-decoration: none;
+    transition: color var(--duration-base) var(--ease-smooth);
+  }
+
+  .navbar__mobile-link:hover {
+    color: var(--color-coconut);
+  }
+
+  .navbar__mobile-cta {
+    margin-top: 1.5rem;
+    align-self: flex-start;
+  }
+
+  /* ── Responsive ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .navbar__nav  { display: none; }
+    #nav-cta      { display: none; }
+    .navbar__hamburger { display: flex; }
+    .navbar__mobile.open { display: flex; }
+  }
+</style>
+
+<script>
+  const navbar    = document.getElementById('navbar') as HTMLElement | null;
+  const toggle    = document.getElementById('nav-toggle') as HTMLButtonElement | null;
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
+
+  // Sticky scroll
+  window.addEventListener('scroll', () => {
+    navbar?.classList.toggle('scrolled', window.scrollY > 16);
+  }, { passive: true });
+
+  // Mobile toggle
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    mobileMenu?.classList.toggle('open', isOpen);
+    mobileMenu?.setAttribute('aria-hidden', String(!isOpen));
+  });
+
+  // Close on link click
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle?.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    });
+  });
+</script>

@@ -1,0 +1,99 @@
+---
+/**
+ * BaseLayout — COCOSORB
+ * Layout fondasi untuk semua halaman.
+ * Props: title, description (untuk SEO).
+ */
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'COCOSORB — Solusi Alami Pengendali Bau Berbasis Sirkular Lokal',
+  description = 'COCOSORB menggunakan arang aktif dari tempurung kelapa dalam wadah kriya lokal untuk menyerap bau secara alami, tanpa bahan kimia.',
+  ogImage = '/og-image.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://cocosorb.id');
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <!-- Meta Essentials -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="COCOSORB" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#A48261" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+
+    <!-- Preconnect Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Slot untuk head tambahan per-halaman -->
+    <slot name="head" />
+  </head>
+
+  <body class="bg-canvas text-charcoal font-sans">
+    <!-- Skip link untuk aksesibilitas -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 btn btn-primary"
+    >
+      Langsung ke konten utama
+    </a>
+
+    <!-- Navigasi — dipanggil via slot agar halaman bisa override -->
+    <slot name="nav" />
+
+    <!-- Konten Utama -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Footer — dipanggil via slot -->
+    <slot name="footer" />
+
+    <!-- Scroll Reveal Script — dijalankan setelah DOM siap -->
+    <script>
+      import { initScrollReveal } from '../utils/scrollReveal';
+      document.addEventListener('DOMContentLoaded', initScrollReveal);
+    </script>
+
+    <!-- Slot untuk scripts tambahan per-halaman -->
+    <slot name="scripts" />
+  </body>
+</html>
