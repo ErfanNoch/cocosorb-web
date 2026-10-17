@@ -18,6 +18,8 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://cocosorb.id');
+
+import '../styles/global.css';
 ---
 
 <!doctype html>
@@ -56,12 +58,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://cocosorb
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Global Styles -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
-
-    <!-- Preconnect Google Fonts -->
+    <!-- Preconnect & Load Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    />
 
     <!-- Slot untuk head tambahan per-halaman -->
     <slot name="head" />
