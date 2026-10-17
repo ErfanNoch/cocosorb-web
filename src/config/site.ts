@@ -1,9 +1,9 @@
 /**
- * site.config.ts — COCOSORB
+ * site.config.ts - COCOSORB
  * Single source of truth untuk semua informasi, konten, dan konfigurasi site.
  * Tim: Gaspol
  *
- * Best practice: semua string konten dan data terstruktur ada di sini —
+ * Best practice: semua string konten dan data terstruktur ada di sini -
  * komponen hanya mengonsumsi data, tidak hardcode teks di template.
  */
 
@@ -15,7 +15,7 @@ export const BRAND = {
   description:
     'Solusi alami pengendali bau berbasis sirkular lokal. Arang aktif tempurung kelapa dalam wadah kriya UMKM nusantara.',
   logoSrc: '/logo.jpeg',
-  logoAlt: 'COCOSORB — Natural Absorbers & Handicrafts',
+  logoAlt: 'COCOSORB - Natural Absorbers & Handicrafts',
   year: 2026,
   team: 'Gaspol',
 } as const;
@@ -24,9 +24,9 @@ export const BRAND = {
 
 export const SEO = {
   siteUrl: 'https://cocosorb.netlify.app',
-  defaultTitle: 'COCOSORB — Solusi Alami Pengendali Bau Berbasis Sirkular Lokal',
+  defaultTitle: 'COCOSORB - Solusi Alami Pengendali Bau Berbasis Sirkular Lokal',
   defaultDescription:
-    'COCOSORB menggunakan arang aktif dari tempurung kelapa dalam wadah kriya UMKM lokal — menyerap bau secara alami, VOC-free, dan berkelanjutan.',
+    'COCOSORB menggunakan arang aktif dari tempurung kelapa dalam wadah kriya UMKM lokal - menyerap bau secara alami, VOC-free, dan berkelanjutan.',
   ogImage: '/og-image.jpg',
   locale: 'id_ID',
 } as const;
@@ -35,8 +35,8 @@ export const SEO = {
 
 export const CONTACT = {
   whatsapp: {
-    number: '6281234567890',   // ganti dengan nomor aktif
-    defaultMessage: 'Halo COCOSORB, saya ingin mengetahui lebih lanjut tentang produk.',
+    number: '6281234567890', // Ganti dengan nomor WhatsApp resmi
+    defaultMessage: 'Halo COCOSORB, saya ingin mengetahui lebih lanjut tentang produk Anda.',
     get url() {
       return `https://wa.me/${this.number}?text=${encodeURIComponent(this.defaultMessage)}`;
     },
@@ -46,6 +46,7 @@ export const CONTACT = {
   tiktok: 'https://tiktok.com/@cocosorb',
   shopee: 'https://shopee.co.id/cocosorb',
   tokopedia: 'https://tokopedia.com/cocosorb',
+  address: 'Indonesia',
 } as const;
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
@@ -55,6 +56,7 @@ export const NAV_LINKS = [
   { label: 'Produk', href: '#products' },
   { label: 'Cara Kerja', href: '#how-it-works' },
   { label: 'Ulasan', href: '#testimonials' },
+  { label: 'Kontak', href: '#contact' },
 ] as const;
 
 // ─── Hero Section ────────────────────────────────────────────────────────────
@@ -63,8 +65,8 @@ export const HERO = {
   headline: ['Solusi Alami', 'Pengendali Bau', 'Sirkular Lokal.'],
   headlineAccent: 1, // index baris yang diberi warna accent (italic)
   subheadline:
-    'Arang aktif dari tempurung kelapa lokal, dikemas dalam wadah kriya tangan yang indah. Menyerap bau tanpa bahan kimia — untuk udara yang lebih sehat di rumah Anda.',
-  badges: ['VOC-Free', 'Arang Tempurung Kelapa', 'Upcycling Limbah'],
+    'Arang aktif dari tempurung kelapa lokal, dikemas dalam wadah kriya tangan yang indah. Menyerap bau tanpa bahan kimia - untuk udara yang lebih sehat di rumah Anda.',
+  badges: ['VOC-Free', 'Arang Tempurung Kelapa', 'Sirkular Berkelanjutan'],
   cta: {
     primary: { label: 'Jelajahi Produk', href: '#products' },
     secondary: { label: 'Cara Kerjanya', href: '#how-it-works' },
@@ -80,34 +82,38 @@ export const HERO = {
 
 export const ABOUT = {
   eyebrow: 'Tentang Kami & Misi',
-  title: ['Dari Limbah Pertanian,', 'Menuju Udara yang Lebih Bersih.'],
+  title: ['Dari Residu Alami Lokal,', 'Menuju Udara yang Lebih Bersih.'],
   titleAccent: 1,
   description:
-    'Setiap tahun, ribuan ton tempurung kelapa menjadi limbah yang tidak terkelola di perdesaan Indonesia. Kami mengubahnya menjadi solusi sehat untuk udara di ruang-ruang kehidupan Anda.',
+    'Material organik dan biomassa lokal yang belum termanfaatkan sering kali terbuang atau mencemari lingkungan. Kami mengolahnya menjadi penyerap bau alami berdaya guna tinggi dalam balutan kriya nusantara.',
   process: [
     {
       id: 'step-1',
-      label: 'Limbah Pertanian',
+      label: 'Biomassa & Residu Alami',
+      shortLabel: 'Residu Alami',
       description:
-        'Tempurung kelapa sisa pertanian lokal dikumpulkan dari petani mitra — material yang sebelumnya terbuang atau dibakar sia-sia.',
+        'Pemanfaatan residu biomassa lokal dan tempurung kelapa dari mitra terpercaya - material organik berharga yang sebelumnya terbuang atau dibakar tanpa nilai tambah.',
     },
     {
       id: 'step-2',
       label: 'Pengolahan Arang Aktif',
+      shortLabel: 'Arang Aktif',
       description:
-        'Tempurung dipirolisis menjadi arang aktif berpori tinggi dengan kapasitas adsorpsi superior terhadap molekul bau seperti NH₃ dan H₂S.',
+        'Biomassa dipirolisis dan diaktivasi menjadi karbon berpori mikro tinggi dengan kapasitas adsorpsi superior terhadap molekul bau seperti amonia (NH3) dan hidrogen sulfida (H2S).',
     },
     {
       id: 'step-3',
       label: 'Kriya Perajin Lokal',
+      shortLabel: 'Kriya Lokal',
       description:
-        'Arang aktif dikemas dalam wadah kerajinan tangan UMKM lokal — estetis, fungsional, dan memberdayakan komunitas pengrajin.',
+        'Arang aktif dikemas dalam wadah kerajinan tangan UMKM lokal - estetis, fungsional, dan memberdayakan komunitas pengrajin tradisional nusantara.',
     },
     {
       id: 'step-4',
       label: 'Produk ke Konsumen',
+      shortLabel: 'Ke Konsumen',
       description:
-        'Produk diterima konsumen dan digunakan hingga habis, lalu isi ulang dibeli — menutup loop sirkular tanpa limbah kemasan baru.',
+        'Produk hadir di rumah Anda untuk menyerap bau secara pasif. Saat kapasitas jenuh tercapai, gunakan kemasan isi ulang untuk menutup siklus sirkular tanpa sampah baru.',
     },
   ],
   values: [
@@ -115,19 +121,19 @@ export const ABOUT = {
       id: 'val-circular',
       title: 'Ekonomi Sirkular',
       description:
-        'Rantai nilai yang menutup loop: dari pertanian, ke pengolahan, ke produk, ke refill — tanpa pembuangan berlebih.',
+        'Rantai nilai yang menutup siklus: dari residu alami, pengolahan arang aktif, wadah kriya, hingga isi ulang berkala tanpa limbah kemasan baru.',
     },
     {
       id: 'val-voc',
       title: 'Bebas VOC & Kimia',
       description:
-        'Tidak ada pewangi sintetis, tidak ada propellant aerosol — hanya pori-pori arang alami yang mengikat molekul bau.',
+        'Tidak ada pewangi sintetis, tidak ada propellant aerosol berbahaya - murni pori-pori arang alami yang mengikat molekul bau sesungguhnya.',
     },
     {
       id: 'val-umkm',
       title: 'UMKM Berdaya',
       description:
-        'Setiap pembelian mendukung perajin kriya lokal yang membuat wadah produk secara handmade dengan keahlian tradisional.',
+        'Setiap produk mendukung perajin kriya lokal yang menciptakan wadah dengan ketelitian tangan dan keahlian warisan budaya.',
     },
   ],
 } as const;
@@ -142,7 +148,7 @@ export interface Product {
   readonly fullName: string;
   readonly tagline: string;
   readonly description: string;
-  readonly imagePlaceholder: string; // warna gradient placeholder
+  readonly imagePlaceholder: string;
   readonly features: readonly string[];
   readonly tags: readonly string[];
   readonly badge?: string;
@@ -159,9 +165,9 @@ export const PRODUCTS: readonly Product[] = [
     fullName: 'COCOSORB Room Odor Absorber Dupa',
     tagline: 'Elegan. Tradisional. Efektif.',
     description:
-      'Arang aktif tempurung kelapa dalam wadah dupa estetik. Adsorpsi aktif menarik molekul bau secara pasif — tanpa asap, tanpa parfum sintetis.',
+      'Arang aktif tempurung kelapa dalam wadah dupa estetik. Adsorpsi aktif menarik molekul bau secara pasif - tanpa asap, tanpa parfum sintetis.',
     imagePlaceholder: 'linear-gradient(145deg, #D4C9BC, #B5A897)',
-    features: ['Luas area 15–20 m²', 'Efektif 30+ hari', 'Isi ulang tersedia'],
+    features: ['Luas area 15-20 m²', 'Efektif 30+ hari', 'Isi ulang tersedia'],
     tags: ['Ruang Tamu', 'Kamar Tidur'],
     badge: 'Terlaris',
     badgeType: 'coconut',
@@ -175,7 +181,7 @@ export const PRODUCTS: readonly Product[] = [
     fullName: 'COCOSORB Room Odor Absorber Pouch',
     tagline: 'Praktis. Fleksibel. Tersembunyi.',
     description:
-      'Kantong arang aktif dalam kain perca lokal. Dirancang untuk lemari pakaian, laci, atau kabin mobil — di mana pun bau bersembunyi.',
+      'Kantong arang aktif dalam kain perca lokal. Dirancang untuk lemari pakaian, laci, atau kabin mobil - di mana pun bau bersembunyi.',
     imagePlaceholder: 'linear-gradient(145deg, #C8C5B8, #A8A59A)',
     features: ['Fleksibel multi-ruang', 'Dapat diregenerasi matahari', 'Isi ulang tersedia'],
     tags: ['Lemari', 'Sepatu', 'Kabin Mobil'],
@@ -191,7 +197,7 @@ export const PRODUCTS: readonly Product[] = [
     fullName: 'COCOSORB Artisan Holder',
     tagline: 'Kerajinan. Karakter. Berkelanjutan.',
     description:
-      'Wadah arang aktif handmade dari perajin lokal. Setiap piece unik — perpaduan fungsi udara bersih dan estetika kriya nusantara.',
+      'Wadah arang aktif handmade dari perajin lokal. Setiap piece unik - perpaduan fungsi udara bersih dan estetika kriya nusantara.',
     imagePlaceholder: 'linear-gradient(145deg, #BFB49F, #A09080)',
     features: ['Handmade UMKM lokal', 'Dekorasi + fungsi', 'Isi ulang tersedia'],
     tags: ['Dekorasi', 'Hadiah'],
@@ -207,9 +213,9 @@ export const PRODUCTS: readonly Product[] = [
     fullName: 'COCOSORB Gift Set',
     tagline: 'Hadiah Bermakna. Dampak Nyata.',
     description:
-      'Paket kompilasi terkurasi — Artisan Holder dan Pouch dalam kotak hadiah premium daur ulang. Pilihan suvenir yang bercerita.',
+      'Paket kompilasi terkurasi - Artisan Holder dan Pouch dalam kotak hadiah premium ramah lingkungan. Pilihan suvenir berkelas yang memiliki narasi.',
     imagePlaceholder: 'linear-gradient(145deg, #C9C0B0, #AFA398)',
-    features: ['Kemasan hadiah premium', 'Kombinasi 2–3 produk', 'Kartu pesan personal'],
+    features: ['Kemasan hadiah premium', 'Kombinasi 2-3 produk', 'Kartu pesan personal'],
     tags: ['Suvenir', 'Hadiah', 'Korporat'],
     badge: 'Edisi Spesial',
     badgeType: 'sage',
@@ -226,30 +232,30 @@ export const HOW_IT_WORKS = {
   title: ['Bukan Sekadar Wangi.', 'Benar-Benar Menyerap Bau.'],
   titleAccent: 1,
   intro:
-    'Kebanyakan produk pengharum hanya "menutupi" bau dengan wangi yang lebih kuat. COCOSORB bekerja secara saintifik: mengikat molekul bau di dalam pori-pori arang aktif.',
+    'Kebanyakan produk pengharum hanya "menutupi" bau dengan wangi yang lebih tajam. COCOSORB bekerja secara saintifik: mengikat molekul bau di dalam pori-pori arang aktif.',
   comparison: {
     bad: {
       method: 'Masking',
       subtitle: 'Pengharum Kimia Konvensional',
       description:
-        'Menyemprotkan molekul wangi sintetis yang menutupi bau — bukan menghilangkannya. Bau asli tetap ada, ditambah risiko VOC yang memicu alergi dan iritasi saluran napas.',
+        'Menyemprotkan molekul wangi sintetis yang menutupi bau - bukan menghilangkannya. Bau asli tetap ada, ditambah risiko VOC yang memicu alergi dan iritasi saluran napas.',
       points: [
         'Mengandung senyawa kimia sintetis (VOC)',
         'Bau kembali setelah efek wangi habis',
-        'Berpotensi memicu alergi & iritasi',
-        'Plastik aerosol sulit didaur ulang',
+        'Berpotensi memicu alergi dan iritasi',
+        'Limbah kemasan aerosol sulit didaur ulang',
       ],
     },
     good: {
       method: 'Adsorpsi Aktif',
       subtitle: 'Teknologi COCOSORB',
       description:
-        'Pori-pori mikro arang aktif tempurung kelapa secara fisik menangkap dan mengikat molekul bau — NH₃, H₂S, dll — langsung dari udara. Tidak ada wangi tiruan yang tersisa.',
+        'Pori-pori mikro arang aktif tempurung kelapa secara fisik menangkap dan mengikat molekul bau seperti NH3 dan H2S langsung dari udara. Tidak ada wangi tiruan yang tersisa.',
       points: [
-        '100% bahan alam, zero VOC',
+        '100% bahan alami, zero VOC',
         'Menghilangkan molekul bau sesungguhnya',
         'Aman untuk bayi, lansia, dan hewan peliharaan',
-        'Kemasan dapat diisi ulang & didaur ulang',
+        'Kemasan dapat diisi ulang dan didaur ulang',
       ],
     },
   },
@@ -266,21 +272,21 @@ export const HOW_IT_WORKS = {
       step: 2,
       title: 'Gunakan Selama 30+ Hari',
       description:
-        'Satu refill efektif 30–45 hari bergantung ukuran ruangan dan kelembaban udara. Performa optimal pada bulan pertama.',
+        'Satu refill efektif 30-45 hari bergantung pada ukuran ruangan dan sirkulasi udara. Performa optimal pada bulan pertama.',
     },
     {
       id: 'ls-3',
       step: 3,
       title: 'Regenerasi Berkala',
       description:
-        'Jemur di bawah sinar matahari langsung 1–2 jam per bulan untuk melepaskan sebagian molekul yang terserap dan memperpanjang umur pakai.',
+        'Jemur di bawah sinar matahari langsung 1-2 jam per bulan untuk melepaskan sebagian uap air dan memperpanjang masa aktif pori-pori arang.',
     },
     {
       id: 'ls-4',
       step: 4,
-      title: 'Isi Ulang — Zero Waste',
+      title: 'Isi Ulang - Zero Waste',
       description:
-        'Ketika efektivitas mulai menurun, cukup beli Refill Pack. Wadah Artisan Holder Anda tetap digunakan — tidak perlu ganti kemasan.',
+        'Ketika efektivitas mulai menurun, cukup beli Refill Pack. Wadah Artisan Holder Anda tetap digunakan tanpa perlu ganti kemasan baru.',
     },
   ],
 } as const;
@@ -304,7 +310,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
     role: 'Ibu Rumah Tangga, Jakarta Selatan',
     initials: 'RD',
     rating: 5,
-    text: 'Lemari pakaian saya dulu selalu bau lembab. Setelah pasang COCOSORB Pouch, dalam 3 hari baunya hilang. Yang bikin senang, tidak ada wangi tiruan — beneran bersih.',
+    text: 'Lemari pakaian saya dulu selalu bau lembap. Setelah pasang COCOSORB Pouch, dalam 3 hari baunya hilang. Yang bikin senang, tidak ada wangi tiruan - beneran bersih netral.',
     tags: ['Lemari', 'Pouch'],
   },
   {
@@ -313,7 +319,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
     role: 'Mahasiswa Arsitektur, Bandung',
     initials: 'BP',
     rating: 5,
-    text: 'Kamar kost saya sempit dan sering bau apek. Artisan Holder-nya juga jadi hiasan meja. Dua fungsi sekaligus — dekorasi yang benar-benar berguna.',
+    text: 'Kamar kost saya sempit dan sering bau apek. Artisan Holder-nya juga jadi hiasan meja. Dua fungsi sekaligus - dekorasi yang benar-benar berguna.',
     tags: ['Artisan Holder', 'Kamar'],
   },
   {
@@ -322,7 +328,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
     role: 'Pemilik Butik, Yogyakarta',
     initials: 'SK',
     rating: 5,
-    text: 'Saya order Gift Set untuk hampers karyawan. Tampilannya premium, dan ceritanya tentang upcycling bikin penerimanya terkesan. Pasti repeat order.',
+    text: 'Saya order Gift Set untuk hampers rekanan. Tampilannya premium, dan narasinya tentang upcycling biomassa lokal bikin penerimanya terkesan. Pasti repeat order.',
     tags: ['Gift Set', 'Korporat'],
   },
   {
@@ -331,7 +337,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
     role: 'Penggemar Otomotif, Surabaya',
     initials: 'AR',
     rating: 5,
-    text: 'Saya taruh Pouch di kabin mobil. Bau rokok bekas dari pemilik sebelumnya akhirnya hilang dalam 2 minggu. Jauh lebih baik dari parfum gantung biasa.',
+    text: 'Saya taruh Pouch di kabin mobil. Bau apek bekas pemilik sebelumnya akhirnya hilang dalam 2 minggu. Jauh lebih nyaman daripada pengharum gantung berbahan kimia.',
     tags: ['Pouch', 'Kabin Mobil'],
   },
 ] as const;
@@ -339,8 +345,54 @@ export const TESTIMONIALS: readonly Testimonial[] = [
 export const LAB_RESULT = {
   percentage: '87%',
   description:
-    'COCOSORB telah melalui uji penyerapan bau terhadap senyawa amonia (NH₃) dan hidrogen sulfida (H₂S). Hasil menunjukkan pengurangan konsentrasi hingga 87% dalam kondisi ruang tertutup selama 24 jam.',
-  label: 'Pengurangan Bau (Uji Lab Independen)',
+    'COCOSORB telah melalui uji adsorpsi penyerapan bau terhadap senyawa amonia (NH3) dan hidrogen sulfida (H2S). Hasil menunjukkan penurunan konsentrasi hingga 87% dalam kondisi ruang tertutup selama 24 jam.',
+  label: 'Penurunan Bau (Uji Efektivitas Terukur)',
+} as const;
+
+// ─── Contact Section ─────────────────────────────────────────────────────────
+
+export const CONTACT_SECTION = {
+  eyebrow: 'Hubungi Kami',
+  title: ['Mari Berkolaborasi &', 'Dapatkan Solusi Ruang Anda.'],
+  titleAccent: 0,
+  description:
+    'Ingin memesan dalam jumlah khusus, bermitra sebagai reseller UMKM, atau memiliki pertanyaan seputar produk COCOSORB? Tim kami siap membantu.',
+  form: {
+    nameLabel: 'Nama Lengkap',
+    namePlaceholder: 'contoh: Budi Pratama',
+    contactLabel: 'Email / Nomor WhatsApp',
+    contactPlaceholder: 'contoh: budi@gmail.com atau 0812xxxxxxx',
+    categoryLabel: 'Tipe Kebutuhan',
+    categories: [
+      'Pembelian Retail / Personal',
+      'Pesanan Custom / Gift Set / Souvenir',
+      'Kemitraan UMKM & Reseller',
+      'Konsultasi Produk / Pertanyaan Lain',
+    ],
+    messageLabel: 'Pesan Anda',
+    messagePlaceholder: 'Tuliskan detail pesanan, jumlah, atau pertanyaan Anda di sini...',
+    submitLabel: 'Kirim Pesan',
+  },
+  quickCards: [
+    {
+      title: 'WhatsApp Resmi',
+      value: '+62 812-3456-7890',
+      actionText: 'Kirim Chat Langsung',
+      type: 'whatsapp',
+    },
+    {
+      title: 'Email Resmi',
+      value: 'hello@cocosorb.id',
+      actionText: 'Kirim Email',
+      type: 'email',
+    },
+    {
+      title: 'Pemesanan Kriya Custom',
+      value: 'Tersedia untuk Souvenir & Hampers',
+      actionText: 'Diskusikan Kebutuhan',
+      type: 'custom',
+    },
+  ],
 } as const;
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
@@ -356,11 +408,12 @@ export const FOOTER_NAV = [
     ],
   },
   {
-    title: 'Perusahaan',
+    title: 'Navigasi',
     links: [
       { label: 'Tentang Kami', href: '#about' },
       { label: 'Cara Kerja', href: '#how-it-works' },
-      { label: 'Ulasan', href: '#testimonials' },
+      { label: 'Ulasan Pengguna', href: '#testimonials' },
+      { label: 'Kontak & Form', href: '#contact' },
     ],
   },
 ] as const;

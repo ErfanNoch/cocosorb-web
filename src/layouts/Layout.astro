@@ -1,6 +1,6 @@
 ---
 /**
- * BaseLayout — COCOSORB
+ * BaseLayout - COCOSORB
  * Layout fondasi untuk semua halaman.
  * Props: title, description (untuk SEO).
  */
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {
-  title = 'COCOSORB — Solusi Alami Pengendali Bau Berbasis Sirkular Lokal',
+  title = 'COCOSORB - Solusi Alami Pengendali Bau Berbasis Sirkular Lokal',
   description = 'COCOSORB menggunakan arang aktif dari tempurung kelapa dalam wadah kriya lokal untuk menyerap bau secara alami, tanpa bahan kimia.',
   ogImage = '/og-image.jpg',
 } = Astro.props;
@@ -76,7 +76,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://cocosorb
       Langsung ke konten utama
     </a>
 
-    <!-- Navigasi — dipanggil via slot agar halaman bisa override -->
+    <!-- Navigasi: dipanggil via slot agar halaman bisa override -->
     <slot name="nav" />
 
     <!-- Konten Utama -->
@@ -84,10 +84,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://cocosorb
       <slot />
     </main>
 
-    <!-- Footer — dipanggil via slot -->
+    <!-- Footer: dipanggil via slot -->
     <slot name="footer" />
 
-    <!-- Scroll Reveal Script — dijalankan setelah DOM siap -->
+    <!-- Scroll Reveal Script: dijalankan setelah DOM siap -->
     <script>
       import { initScrollReveal } from '../utils/scrollReveal';
       document.addEventListener('DOMContentLoaded', initScrollReveal);

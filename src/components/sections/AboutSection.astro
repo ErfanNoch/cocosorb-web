@@ -1,96 +1,160 @@
 ---
 /**
- * AboutSection — COCOSORB
- * Narasi upcycling, misi sirkular, dan alur proses dari limbah ke produk.
+ * AboutSection - COCOSORB
+ * Siklus proses interaktif: klik tiap node untuk lihat detail.
+ * Visual circular diagram, no emoji, no em dash, data driven dari site.config.
  */
+import { ABOUT } from '../../config/site';
 ---
 
 <section id="about" class="section about">
   <div class="container">
 
-    <!-- Section Header -->
+    <!-- Header -->
     <div class="about__header reveal">
-      <div class="eyebrow">Tentang Kami &amp; Misi</div>
+      <div class="eyebrow">{ABOUT.eyebrow}</div>
       <h2 class="text-h2 about__title">
-        Dari Limbah Pertanian,<br />
-        <em>Menuju Udara yang Lebih Bersih.</em>
+        {ABOUT.title.map((line, i) =>
+          i === ABOUT.titleAccent
+            ? <em>{line}</em>
+            : <>{line}<br /></>
+        )}
       </h2>
-      <p class="about__desc text-body-lg text-charcoal-soft">
-        Setiap tahun, ribuan ton tempurung kelapa menjadi limbah yang tidak terkelola
-        di perdesaan Indonesia. Kami mengubahnya menjadi solusi sehat untuk udara
-        di ruang-ruang kehidupan Anda.
+      <p class="text-body-lg text-charcoal-soft about__desc">
+        {ABOUT.description}
       </p>
     </div>
 
-    <!-- Alur Proses Infografis -->
-    <div class="about__flow" aria-label="Alur proses sirkular COCOSORB">
+    <!-- Circular Process Diagram -->
+    <div class="cycle" aria-label="Siklus sirkular COCOSORB" role="region">
 
-      <div class="about__flow-step reveal delay-100">
-        <div class="about__flow-icon" aria-hidden="true">🌴</div>
-        <div class="about__flow-content">
-          <h3 class="about__flow-title">Limbah Pertanian</h3>
-          <p class="about__flow-desc">
-            Tempurung kelapa sisa pertanian lokal dikumpulkan — material yang
-            sebelumnya dibuang atau dibakar sia-sia.
-          </p>
+      <!-- SVG Circular Track -->
+      <div class="cycle__diagram reveal delay-100">
+        <div class="cycle__svg-wrap" id="cycle-diagram">
+
+          <svg
+            viewBox="0 0 400 400"
+            class="cycle__svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <!-- Dashed circular track -->
+            <circle
+              cx="200" cy="200" r="145"
+              fill="none"
+              stroke="var(--color-mist-dark)"
+              stroke-width="1"
+              stroke-dasharray="6 4"
+            />
+            <!-- Progress arc (animated via JS) -->
+            <circle
+              cx="200" cy="200" r="145"
+              fill="none"
+              stroke="var(--color-coconut)"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-dasharray="0 1000"
+              id="cycle-arc"
+              transform="rotate(-90 200 200)"
+            />
+
+            <!-- Step 1: top (12 o'clock) - Residu Biomassa Alami -->
+            <g class="cycle__node" data-step="0" tabindex="0" role="button" aria-label={`Langkah 1: ${ABOUT.process[0].label}`}>
+              <circle cx="200" cy="55" r="28" fill="var(--color-surface)" stroke="var(--color-mist-dark)" stroke-width="1.5"/>
+              <circle cx="200" cy="55" r="28" fill="transparent" class="cycle__node-fill" stroke="none"/>
+              <!-- Biomass / natural organic leaf icon SVG -->
+              <path d="M200 43 C193 49 191 58 200 67 C209 58 207 49 200 43 Z M200 48 L200 64"
+                stroke="var(--color-coconut)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M196 54 L200 57 M204 52 L200 55"
+                stroke="var(--color-coconut)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+              <text x="200" y="96" text-anchor="middle" class="cycle__label">{ABOUT.process[0].shortLabel}</text>
+            </g>
+
+            <!-- Step 2: right (3 o'clock) - Pengolahan Arang Aktif -->
+            <g class="cycle__node" data-step="1" tabindex="0" role="button" aria-label={`Langkah 2: ${ABOUT.process[1].label}`}>
+              <circle cx="345" cy="200" r="28" fill="var(--color-surface)" stroke="var(--color-mist-dark)" stroke-width="1.5"/>
+              <circle cx="345" cy="200" r="28" fill="transparent" class="cycle__node-fill" stroke="none"/>
+              <!-- Activation thermal icon -->
+              <path d="M345 213 C341 213 338 209 338 205 C338 199 342 196 345 193 C348 196 352 199 352 205 C352 209 349 213 345 213 Z M343 207 C343 209 344 210 345 210 C346 210 347 209 347 207 C347 205 345.5 204 345 203 C344.5 204 343 205 343 207 Z"
+                stroke="none" fill="var(--color-coconut)" opacity="0.85"/>
+              <text x="345" y="240" text-anchor="middle" class="cycle__label">{ABOUT.process[1].shortLabel}</text>
+            </g>
+
+            <!-- Step 3: bottom (6 o'clock) - Kriya Perajin Lokal -->
+            <g class="cycle__node" data-step="2" tabindex="0" role="button" aria-label={`Langkah 3: ${ABOUT.process[2].label}`}>
+              <circle cx="200" cy="345" r="28" fill="var(--color-surface)" stroke="var(--color-mist-dark)" stroke-width="1.5"/>
+              <circle cx="200" cy="345" r="28" fill="transparent" class="cycle__node-fill" stroke="none"/>
+              <!-- Handcraft icon -->
+              <path d="M193 352 L193 341 Q193 338 196 338 Q199 338 199 341 L199 337 Q199 334 202 334 Q205 334 205 337 L205 340 Q205 337 207.5 337 Q210 337 210 340 L210 342 Q210 339 212 339 Q214 339 214 342 L214 352 Q214 356 210 358 L204 358 L200 358 L196 357 Q193 356 193 352 Z"
+                stroke="var(--color-coconut)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <text x="200" y="385" text-anchor="middle" class="cycle__label">{ABOUT.process[2].shortLabel}</text>
+            </g>
+
+            <!-- Step 4: left (9 o'clock) - Produk ke Konsumen -->
+            <g class="cycle__node" data-step="3" tabindex="0" role="button" aria-label={`Langkah 4: ${ABOUT.process[3].label}`}>
+              <circle cx="55" cy="200" r="28" fill="var(--color-surface)" stroke="var(--color-mist-dark)" stroke-width="1.5"/>
+              <circle cx="55" cy="200" r="28" fill="transparent" class="cycle__node-fill" stroke="none"/>
+              <!-- Home / consumer icon -->
+              <path d="M55 211 L55 203 L49 203 L55 195 L61 203 L55 203"
+                stroke="var(--color-coconut)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M51 203 L51 211 L59 211 L59 203"
+                stroke="var(--color-coconut)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M53 211 L53 207 L57 207 L57 211"
+                stroke="var(--color-coconut)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <text x="55" y="240" text-anchor="middle" class="cycle__label">{ABOUT.process[3].shortLabel}</text>
+            </g>
+
+            <!-- Circular arrow indicator at center -->
+            <g transform="translate(200,200)">
+              <circle r="32" fill="var(--color-canvas)" stroke="var(--color-mist)" stroke-width="1"/>
+              <text y="4" text-anchor="middle" class="cycle__center-text">SIKLUS</text>
+              <text y="16" text-anchor="middle" class="cycle__center-sub">SIRKULAR</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Step indicator dots (mobile friendly) -->
+        <div class="cycle__dots" role="tablist" aria-label="Langkah siklus">
+          {ABOUT.process.map((_, i) => (
+            <button
+              class="cycle__dot"
+              data-step={i}
+              role="tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-label={`Langkah ${i + 1}`}
+            ></button>
+          ))}
         </div>
       </div>
 
-      <div class="about__flow-arrow reveal delay-200" aria-hidden="true">→</div>
-
-      <div class="about__flow-step reveal delay-200">
-        <div class="about__flow-icon" aria-hidden="true">⚗️</div>
-        <div class="about__flow-content">
-          <h3 class="about__flow-title">Pengolahan Arang Aktif</h3>
-          <p class="about__flow-desc">
-            Tempurung dipirolisis menjadi arang aktif berpori tinggi dengan kapasitas
-            adsorpsi superior terhadap molekul bau.
-          </p>
-        </div>
+      <!-- Detail Panel -->
+      <div class="cycle__detail" id="cycle-detail">
+        {ABOUT.process.map((step, i) => (
+          <div
+            class={`cycle__detail-panel ${i === 0 ? 'cycle__detail-panel--active' : ''}`}
+            data-step={i}
+            role="tabpanel"
+            id={`cycle-panel-${i}`}
+            aria-hidden={i !== 0}
+          >
+            <div class="cycle__detail-num">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="cycle__detail-title">{step.label}</h3>
+            <p class="cycle__detail-desc">{step.description}</p>
+          </div>
+        ))}
       </div>
 
-      <div class="about__flow-arrow reveal delay-300" aria-hidden="true">→</div>
-
-      <div class="about__flow-step reveal delay-300">
-        <div class="about__flow-icon" aria-hidden="true">🎨</div>
-        <div class="about__flow-content">
-          <h3 class="about__flow-title">Perajin Kriya Lokal</h3>
-          <p class="about__flow-desc">
-            Arang aktif dikemas dalam wadah kerajinan tangan UMKM lokal —
-            estetis, fungsional, dan memberdayakan komunitas.
-          </p>
-        </div>
-      </div>
     </div>
 
-    <!-- Value Propositions -->
+    <!-- Value Cards -->
     <div class="about__values">
-      <div class="about__value-card reveal delay-100">
-        <div class="about__value-icon" aria-hidden="true">♻️</div>
-        <h4 class="about__value-title">Ekonomi Sirkular</h4>
-        <p class="about__value-desc">
-          Rantai nilai yang menutup loop: dari pertanian, ke pengolahan,
-          ke produk, ke refill — tanpa pembuangan berlebih.
-        </p>
-      </div>
-
-      <div class="about__value-card reveal delay-200">
-        <div class="about__value-icon" aria-hidden="true">🚫</div>
-        <h4 class="about__value-title">Bebas VOC & Kimia</h4>
-        <p class="about__value-desc">
-          Tidak ada pewangi sintetis, tidak ada propellant aerosol —
-          hanya pori-pori arang alami yang mengikat molekul bau.
-        </p>
-      </div>
-
-      <div class="about__value-card reveal delay-300">
-        <div class="about__value-icon" aria-hidden="true">🤝</div>
-        <h4 class="about__value-title">UMKM Berdaya</h4>
-        <p class="about__value-desc">
-          Setiap pembelian mendukung perajin kriya lokal yang membuat
-          wadah produk secara handmade dengan keahlian tradisional.
-        </p>
-      </div>
+      {ABOUT.values.map((v, i) => (
+        <div class={`about__value-card reveal delay-${(i + 1) * 100}`} id={v.id}>
+          <div class="about__value-num">0{i + 1}</div>
+          <h4 class="about__value-title">{v.title}</h4>
+          <p class="about__value-desc">{v.description}</p>
+        </div>
+      ))}
     </div>
 
   </div>
@@ -99,19 +163,15 @@
 <style>
   .about {
     background-color: var(--color-surface);
-    position: relative;
   }
 
   /* ── Header ──────────────────────────────────── */
   .about__header {
-    text-align: center;
-    max-width: 680px;
-    margin-inline: auto;
-    margin-bottom: 4rem;
+    max-width: 640px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 4rem;
   }
 
   .about__title {
@@ -124,68 +184,159 @@
     color: var(--color-coconut);
   }
 
-  .about__desc {
-    margin: 0;
+  .about__desc { margin: 0; }
+
+  /* ── Cycle Layout ────────────────────────────── */
+  .cycle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 5rem;
   }
 
-  /* ── Flow / Infographic ──────────────────────── */
-  .about__flow {
-    display: flex;
-    align-items: flex-start;
-    gap: 0;
-    margin-bottom: 4rem;
-    position: relative;
-  }
-
-  .about__flow-step {
-    flex: 1;
+  /* ── SVG Diagram ─────────────────────────────── */
+  .cycle__diagram {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    gap: 1rem;
-    padding: 2rem 1.5rem;
-    background-color: var(--color-canvas);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-mist);
+    gap: 1.5rem;
+  }
+
+  .cycle__svg-wrap {
+    width: 100%;
+    max-width: 400px;
     position: relative;
   }
 
-  .about__flow-icon {
-    font-size: 2.5rem;
-    line-height: 1;
-    background-color: var(--color-surface);
-    border: 2px solid var(--color-mist);
-    border-radius: 50%;
-    width: 72px;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .cycle__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
   }
 
-  .about__flow-title {
-    font-family: var(--font-serif);
-    font-size: var(--text-h4);
+  /* Node styles */
+  .cycle__node {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .cycle__node:focus-visible circle:first-child {
+    stroke: var(--color-coconut);
+    stroke-width: 2.5;
+  }
+
+  .cycle__node-fill {
+    transition: fill 250ms ease;
+  }
+
+  .cycle__node.active circle:first-child {
+    stroke: var(--color-coconut);
+    stroke-width: 2;
+  }
+
+  .cycle__node.active .cycle__node-fill {
+    fill: color-mix(in srgb, var(--color-coconut) 10%, transparent);
+  }
+
+  .cycle__label {
+    font-family: var(--font-sans);
+    font-size: 11px;
     font-weight: 600;
+    letter-spacing: 0.06em;
+    fill: var(--color-charcoal-soft);
+    text-transform: uppercase;
+  }
+
+  .cycle__center-text {
+    font-family: var(--font-sans);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    fill: var(--color-coconut);
+    text-transform: uppercase;
+  }
+
+  .cycle__center-sub {
+    font-family: var(--font-sans);
+    font-size: 6px;
+    letter-spacing: 0.12em;
+    fill: var(--color-charcoal-soft);
+    text-transform: uppercase;
+  }
+
+  /* Dots */
+  .cycle__dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cycle__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-mist-dark);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color var(--duration-base) var(--ease-smooth), transform var(--duration-fast) var(--ease-bounce);
+  }
+
+  .cycle__dot[aria-selected="true"] {
+    background-color: var(--color-coconut);
+    transform: scale(1.3);
+  }
+
+  /* ── Detail Panel ────────────────────────────── */
+  .cycle__detail {
+    position: relative;
+    min-height: 200px;
+  }
+
+  .cycle__detail-panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity var(--duration-base) var(--ease-smooth),
+      transform var(--duration-base) var(--ease-smooth);
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cycle__detail-panel--active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
+  }
+
+  .cycle__detail-num {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    color: var(--color-mist);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+
+  .cycle__detail-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-h3);
     color: var(--color-charcoal);
-    margin: 0;
+    margin: -0.75rem 0 0;
   }
 
-  .about__flow-desc {
-    font-size: var(--text-body-sm);
+  .cycle__detail-desc {
+    font-size: var(--text-body-lg);
     color: var(--color-charcoal-soft);
-    line-height: 1.7;
+    line-height: 1.8;
     margin: 0;
-  }
-
-  .about__flow-arrow {
-    font-size: 1.5rem;
-    color: var(--color-coconut-light);
-    flex-shrink: 0;
-    align-self: center;
-    padding: 0 0.5rem;
-    font-weight: 300;
+    max-width: 44ch;
   }
 
   /* ── Value Cards ─────────────────────────────── */
@@ -193,31 +344,37 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+    border-top: 1px solid var(--color-mist);
+    padding-top: 3rem;
   }
 
   .about__value-card {
     padding: 2rem;
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--color-coconut) 5%, var(--color-canvas)),
-      var(--color-canvas)
-    );
+    background-color: var(--color-canvas);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-mist);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    transition: box-shadow var(--duration-base) var(--ease-smooth), transform var(--duration-base) var(--ease-smooth);
+    transition:
+      box-shadow var(--duration-base) var(--ease-smooth),
+      transform var(--duration-base) var(--ease-smooth),
+      border-color var(--duration-base) var(--ease-smooth);
   }
 
   .about__value-card:hover {
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-4px);
+    border-color: var(--color-coconut-light);
   }
 
-  .about__value-icon {
+  .about__value-num {
+    font-family: var(--font-serif);
     font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-mist-dark);
     line-height: 1;
+    letter-spacing: -0.03em;
   }
 
   .about__value-title {
@@ -230,24 +387,23 @@
   .about__value-desc {
     font-size: var(--text-body-sm);
     color: var(--color-charcoal-soft);
-    line-height: 1.7;
+    line-height: 1.75;
     margin: 0;
   }
 
   /* ── Responsive ─────────────────────────────── */
   @media (max-width: 1024px) {
-    .about__flow {
-      flex-direction: column;
+    .cycle {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
     }
 
-    .about__flow-arrow {
-      transform: rotate(90deg);
-      align-self: center;
-      padding: 0;
+    .cycle__detail-panel--active {
+      position: relative;
     }
 
-    .about__flow-step {
-      width: 100%;
+    .cycle__detail {
+      min-height: auto;
     }
   }
 
@@ -255,5 +411,85 @@
     .about__values {
       grid-template-columns: 1fr;
     }
+
+    .cycle__svg-wrap {
+      max-width: 320px;
+    }
   }
 </style>
+
+<script>
+  const nodes = document.querySelectorAll<SVGGElement>('.cycle__node');
+  const panels = document.querySelectorAll<HTMLElement>('.cycle__detail-panel');
+  const dots = document.querySelectorAll<HTMLButtonElement>('.cycle__dot');
+  const arc = document.getElementById('cycle-arc') as SVGCircleElement | null;
+
+  // Full circumference for r=145: 2π × 145 ≈ 911
+  const CIRCUMFERENCE = 2 * Math.PI * 145;
+  const TOTAL_STEPS = 4;
+
+  let currentStep = 0;
+
+  function activate(step: number) {
+    currentStep = step;
+
+    // Nodes
+    nodes.forEach((n, i) => {
+      n.classList.toggle('active', i === step);
+    });
+
+    // Panels
+    panels.forEach((p, i) => {
+      const active = i === step;
+      p.classList.toggle('cycle__detail-panel--active', active);
+      p.style.position = active ? 'relative' : 'absolute';
+      p.setAttribute('aria-hidden', String(!active));
+    });
+
+    // Dots
+    dots.forEach((d, i) => {
+      d.setAttribute('aria-selected', String(i === step));
+    });
+
+    // Arc progress
+    if (arc) {
+      const progress = ((step + 1) / TOTAL_STEPS) * CIRCUMFERENCE;
+      arc.setAttribute('stroke-dasharray', `${progress} ${CIRCUMFERENCE}`);
+    }
+  }
+
+  // Bind nodes
+  nodes.forEach((node, i) => {
+    node.addEventListener('click', () => activate(i));
+    node.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activate(i);
+      }
+    });
+  });
+
+  // Bind dots
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => activate(i));
+  });
+
+  // Auto-cycle every 3.5s
+  let timer = setInterval(() => {
+    activate((currentStep + 1) % TOTAL_STEPS);
+  }, 3500);
+
+  // Pause on interaction
+  function pauseTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      activate((currentStep + 1) % TOTAL_STEPS);
+    }, 5000);
+  }
+
+  nodes.forEach(n => n.addEventListener('click', pauseTimer));
+  dots.forEach(d => d.addEventListener('click', pauseTimer));
+
+  // Init
+  activate(0);
+</script>

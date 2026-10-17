@@ -1,0 +1,554 @@
+---
+/**
+ * ContactSection - COCOSORB
+ * Form kontak terintegrasi Netlify Forms dan kartu kontak cepat.
+ * Tidak menggunakan em dash, rapi, elegan, dan mobile friendly.
+ */
+import { BRAND, CONTACT, CONTACT_SECTION } from '../../config/site';
+---
+
+<section id="contact" class="section contact" aria-label="Kontak dan Pemesanan COCOSORB">
+  <div class="container">
+
+    <!-- Header Section -->
+    <div class="contact__header reveal">
+      <div class="eyebrow">{CONTACT_SECTION.eyebrow}</div>
+      <h2 class="text-h2 contact__title">
+        {CONTACT_SECTION.title.map((line, i) =>
+          i === CONTACT_SECTION.titleAccent
+            ? <em>{line}</em>
+            : <>{line}<br /></>
+        )}
+      </h2>
+      <p class="text-body-lg text-charcoal-soft contact__desc">
+        {CONTACT_SECTION.description}
+      </p>
+    </div>
+
+    <!-- Alert Sukses (jika dikirim lewat Netlify) -->
+    <div id="contact-success-alert" class="contact__alert" style="display: none;" role="alert">
+      <div class="contact__alert-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="var(--color-sage)" stroke-width="2"/>
+          <path d="M6 10l3 3 5-5" stroke="var(--color-sage)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="contact__alert-body">
+        <strong>Pesan Berhasil Terkirim!</strong>
+        <span>Terima kasih telah menghubungi COCOSORB. Tim kami akan segera merespons Anda.</span>
+      </div>
+      <button type="button" class="contact__alert-close" id="alert-close-btn" aria-label="Tutup notifikasi">
+        &times;
+      </button>
+    </div>
+
+    <div class="contact__grid">
+
+      <!-- Form Card (Netlify Form) -->
+      <div class="contact__form-card reveal delay-100">
+        <div class="contact__card-badge">Formulir Pesan</div>
+        <h3 class="contact__card-title">Kirimkan Pesan atau Permintaan Khusus</h3>
+        <p class="contact__card-sub">
+          Isi detail di bawah ini dan kami akan membalas via WhatsApp atau Email sesegera mungkin.
+        </p>
+
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          action="/?success=true#contact"
+          class="contact__form"
+          id="netlify-contact-form"
+        >
+          <!-- Netlify hidden inputs -->
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="sr-only" aria-hidden="true" style="display: none;">
+            <label>Jangan diisi bila Anda manusia: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+
+          <!-- Field 1: Nama -->
+          <div class="contact__field">
+            <label for="contact-name" class="contact__label">
+              {CONTACT_SECTION.form.nameLabel} <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              required
+              class="contact__input"
+              placeholder={CONTACT_SECTION.form.namePlaceholder}
+              autocomplete="name"
+            />
+          </div>
+
+          <!-- Field 2: Kontak (Email / WA) -->
+          <div class="contact__field">
+            <label for="contact-info" class="contact__label">
+              {CONTACT_SECTION.form.contactLabel} <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="contact-info"
+              name="contact_info"
+              required
+              class="contact__input"
+              placeholder={CONTACT_SECTION.form.contactPlaceholder}
+              autocomplete="email tel"
+            />
+          </div>
+
+          <!-- Field 3: Kategori -->
+          <div class="contact__field">
+            <label for="contact-category" class="contact__label">
+              {CONTACT_SECTION.form.categoryLabel}
+            </label>
+            <div class="contact__select-wrap">
+              <select id="contact-category" name="category" class="contact__select">
+                {CONTACT_SECTION.form.categories.map((cat, idx) => (
+                  <option value={cat} selected={idx === 0}>{cat}</option>
+                ))}
+              </select>
+              <svg class="contact__select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                <path d="M1.5 1.75L6 6.25L10.5 1.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Field 4: Pesan -->
+          <div class="contact__field">
+            <label for="contact-message" class="contact__label">
+              {CONTACT_SECTION.form.messageLabel} <span class="required">*</span>
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              required
+              rows="4"
+              class="contact__textarea"
+              placeholder={CONTACT_SECTION.form.messagePlaceholder}
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary contact__submit-btn" id="contact-submit">
+            <span>{CONTACT_SECTION.form.submitLabel}</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M14 2L7 9M14 2L9.5 14L7 9M14 2L2 6.5L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Quick Contact Info -->
+      <div class="contact__info reveal delay-200">
+
+        <!-- Info Card: WhatsApp Langsung -->
+        <a
+          href={CONTACT.whatsapp.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact__quick-card contact__quick-card--wa"
+        >
+          <div class="contact__quick-icon-wrap contact__quick-icon-wrap--wa">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.083.535 4.04 1.472 5.745L0 24l6.405-1.438A11.93 11.93 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.658-.518-5.175-1.415l-.371-.22-3.802.854.855-3.717-.242-.383A9.937 9.937 0 0 1 2 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+          </div>
+          <div class="contact__quick-text">
+            <span class="contact__quick-label">Respon Cepat</span>
+            <strong class="contact__quick-val">WhatsApp Business</strong>
+            <span class="contact__quick-link">Mulai Percakapan &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Info Card: Email -->
+        <a
+          href={`mailto:${CONTACT.email}`}
+          class="contact__quick-card"
+        >
+          <div class="contact__quick-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m2 4 10 9 10-9"/>
+            </svg>
+          </div>
+          <div class="contact__quick-text">
+            <span class="contact__quick-label">Email Korespondensi</span>
+            <strong class="contact__quick-val">{CONTACT.email}</strong>
+            <span class="contact__quick-link">Kirim Email &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Info Card: Kriya & Kemitraan -->
+        <div class="contact__quick-card contact__quick-card--static">
+          <div class="contact__quick-icon-wrap contact__quick-icon-wrap--sage">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="contact__quick-text">
+            <span class="contact__quick-label">Kemitraan UMKM & Kriya</span>
+            <strong class="contact__quick-val">Souvenir & Kemasan Khusus</strong>
+            <p class="contact__quick-desc">
+              Kami melayani pengadaan gift set ramah lingkungan untuk event, perusahaan, hotel, dan cafe.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .contact {
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-mist);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Header ──────────────────────────────────── */
+  .contact__header {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .contact__title {
+    margin: 0;
+    color: var(--color-charcoal);
+  }
+
+  .contact__title em {
+    font-style: italic;
+    color: var(--color-coconut);
+  }
+
+  .contact__desc {
+    margin: 0;
+  }
+
+  /* ── Alert Sukses ────────────────────────────── */
+  .contact__alert {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background-color: #F1F6F0;
+    border: 1px solid #C4D9C0;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 2.5rem;
+    color: #2F402A;
+    box-shadow: 0 4px 16px rgba(110, 127, 101, 0.08);
+  }
+
+  .contact__alert-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .contact__alert-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9375rem;
+    flex-grow: 1;
+  }
+
+  .contact__alert-body strong {
+    font-family: var(--font-sans);
+    font-weight: 600;
+  }
+
+  .contact__alert-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #5A7553;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .contact__alert-close:hover {
+    color: #2F402A;
+  }
+
+  /* ── Grid Layout ─────────────────────────────── */
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.85fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  /* ── Form Card ───────────────────────────────── */
+  .contact__form-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-mist);
+    border-radius: var(--radius-xl);
+    padding: 2.75rem;
+    box-shadow: var(--shadow-card);
+    position: relative;
+  }
+
+  .contact__card-badge {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-coconut-dark);
+    background-color: rgba(164, 130, 97, 0.1);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-pill);
+    margin-bottom: 1rem;
+  }
+
+  .contact__card-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-h3);
+    color: var(--color-charcoal);
+    margin: 0 0 0.5rem;
+    line-height: 1.25;
+  }
+
+  .contact__card-sub {
+    font-size: 0.9375rem;
+    color: var(--color-charcoal-soft);
+    line-height: 1.6;
+    margin: 0 0 2rem;
+  }
+
+  /* Form Elements */
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact__label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-charcoal);
+  }
+
+  .required {
+    color: var(--color-coconut-dark);
+  }
+
+  .contact__input,
+  .contact__textarea,
+  .contact__select {
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--color-charcoal);
+    background-color: #FAF8F5;
+    border: 1.5px solid var(--color-mist);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-smooth),
+      background-color var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-fast) var(--ease-smooth);
+    box-sizing: border-box;
+  }
+
+  .contact__input::placeholder,
+  .contact__textarea::placeholder {
+    color: #A6A097;
+  }
+
+  .contact__input:focus,
+  .contact__textarea:focus,
+  .contact__select:focus {
+    border-color: var(--color-coconut);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(164, 130, 97, 0.15);
+  }
+
+  .contact__textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.6;
+  }
+
+  .contact__select-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .contact__select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 2.5rem;
+  }
+
+  .contact__select-arrow {
+    position: absolute;
+    right: 1.125rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--color-charcoal-soft);
+  }
+
+  .contact__submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.75rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.06em;
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  /* ── Info Column ─────────────────────────────── */
+  .contact__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact__quick-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-mist);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      transform var(--duration-base) var(--ease-smooth),
+      box-shadow var(--duration-base) var(--ease-smooth),
+      border-color var(--duration-base) var(--ease-smooth);
+  }
+
+  .contact__quick-card:not(.contact__quick-card--static):hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-coconut-light);
+  }
+
+  .contact__quick-card--wa {
+    border-color: rgba(37, 211, 102, 0.3);
+    background: linear-gradient(145deg, #FFFFFF, #F6FBF7);
+  }
+
+  .contact__quick-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background-color: #FAF8F5;
+    border: 1px solid var(--color-mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-coconut);
+    flex-shrink: 0;
+  }
+
+  .contact__quick-icon-wrap--wa {
+    background-color: #25D366;
+    border-color: #25D366;
+    color: #FFFFFF;
+  }
+
+  .contact__quick-icon-wrap--sage {
+    background-color: rgba(110, 127, 101, 0.12);
+    border-color: rgba(110, 127, 101, 0.2);
+    color: var(--color-sage);
+  }
+
+  .contact__quick-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contact__quick-label {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-charcoal-soft);
+  }
+
+  .contact__quick-val {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-charcoal);
+  }
+
+  .contact__quick-link {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-coconut-dark);
+    margin-top: 0.25rem;
+  }
+
+  .contact__quick-desc {
+    font-size: 0.8125rem;
+    color: var(--color-charcoal-soft);
+    line-height: 1.6;
+    margin: 0.25rem 0 0;
+  }
+
+  /* ── Responsive ─────────────────────────────── */
+  @media (max-width: 992px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .contact__form-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Check URL parameters for ?success=true from Netlify redirect
+  const urlParams = new URLSearchParams(window.location.search);
+  const successAlert = document.getElementById('contact-success-alert');
+  const alertCloseBtn = document.getElementById('alert-close-btn');
+
+  if (urlParams.get('success') === 'true' && successAlert) {
+    successAlert.style.display = 'flex';
+  }
+
+  alertCloseBtn?.addEventListener('click', () => {
+    if (successAlert) {
+      successAlert.style.display = 'none';
+    }
+  });
+</script>

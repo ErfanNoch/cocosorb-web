@@ -1,5 +1,5 @@
 /* ============================================================
-   COCOSORB — Global Design System
+   COCOSORB - Global Design System
    Team: Gaspol
    Philosophy: "Form Follows Function with Organic Soul"
    ============================================================ */
@@ -12,16 +12,16 @@
 /* ── Tailwind v4: Design Tokens via @theme ─────────────────── */
 @theme {
   /* --- Color Palette --- */
-  --color-canvas:         #F8F6F2; /* Natural Canvas — background utama */
-  --color-surface:        #FFFFFF; /* Clean Off-White — card/surface */
-  --color-charcoal:       #1F2124; /* Deep Charcoal — teks utama */
-  --color-charcoal-soft:  #3A3D42; /* Charcoal lebih lunak — teks sekunder */
-  --color-coconut:        #A48261; /* Warm Coconut — primary accent / CTA */
-  --color-coconut-dark:   #8A6B4E; /* Coconut lebih gelap — hover CTA */
-  --color-coconut-light:  #C4A882; /* Coconut lebih terang — subtle accent */
-  --color-sage:           #6E7F65; /* Muted Sage — eco label / secondary */
+  --color-canvas:         #F8F6F2; /* Natural Canvas: background utama */
+  --color-surface:        #FFFFFF; /* Clean Off-White: card/surface */
+  --color-charcoal:       #1F2124; /* Deep Charcoal: teks utama */
+  --color-charcoal-soft:  #3A3D42; /* Charcoal lebih lunak: teks sekunder */
+  --color-coconut:        #A48261; /* Warm Coconut: primary accent / CTA */
+  --color-coconut-dark:   #8A6B4E; /* Coconut lebih gelap: hover CTA */
+  --color-coconut-light:  #C4A882; /* Coconut lebih terang: subtle accent */
+  --color-sage:           #6E7F65; /* Muted Sage: eco label / secondary */
   --color-sage-light:     #8FA584; /* Sage lebih terang */
-  --color-mist:           #E8E4DD; /* Off-white warm — divider / border */
+  --color-mist:           #E8E4DD; /* Off-white warm: divider / border */
   --color-mist-dark:      #D4CFC6; /* Divider lebih gelap */
 
   /* --- Typography Scale --- */
@@ -168,7 +168,7 @@ a {
 .btn:hover  { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 
-/* Primary CTA — Warm Coconut */
+/* Primary CTA - Warm Coconut */
 .btn-primary {
   background-color: var(--color-coconut);
   color: var(--color-surface);
@@ -190,7 +190,7 @@ a {
   color: var(--color-surface);
 }
 
-/* Ghost CTA — untuk background gelap */
+/* Ghost CTA - untuk background gelap */
 .btn-ghost {
   background-color: rgba(255,255,255,0.12);
   color: var(--color-surface);
@@ -289,7 +289,7 @@ a {
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* Organic float — untuk elemen dekoratif */
+/* Organic float - untuk elemen dekoratif */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-8px); }

@@ -1,65 +1,10 @@
 ---
 /**
- * ProductsSection — COCOSORB
- * Katalog 4 varian produk utama.
- * Data produk disimpan di dalam frontmatter agar mudah di-extend
- * ke content collections nantinya.
+ * ProductsSection - COCOSORB
+ * Product cards dengan placeholder gambar yang proper (no emoji).
+ * Data driven dari site.config.ts.
  */
-
-const products = [
-  {
-    id: 'dupa',
-    name: 'Room Odor Absorber Dupa',
-    tagline: 'Elegan. Tradisional. Efektif.',
-    description:
-      'Arang aktif tempurung kelapa dalam wadah dupa estetik. Adsorpsi aktif menarik molekul bau secara pasif — tanpa asap, tanpa parfum.',
-    icon: '🕯️',
-    features: ['Luas area 15–20 m²', 'Efektif 30+ hari', 'Isi ulang tersedia'],
-    tags: ['Ruang Tamu', 'Kamar Tidur'],
-    badge: 'Terlaris',
-    badgeType: 'coconut',
-    href: '#product-dupa',
-  },
-  {
-    id: 'pouch',
-    name: 'Room Odor Absorber Pouch',
-    tagline: 'Praktis. Fleksibel. Tersembunyi.',
-    description:
-      'Kantong arang aktif dalam kain perca lokal. Pas untuk lemari pakaian, laci, atau sepatu — dimana pun bau bersembunyi.',
-    icon: '👝',
-    features: ['Fleksibel multi-ruang', 'Bisa diperbarui sinar matahari', 'Isi ulang tersedia'],
-    tags: ['Lemari', 'Sepatu', 'Kabin Mobil'],
-    badge: 'Serbaguna',
-    badgeType: 'sage',
-    href: '#product-pouch',
-  },
-  {
-    id: 'artisan',
-    name: 'Artisan Holder',
-    tagline: 'Kerajinan. Karakter. Berkelanjutan.',
-    description:
-      'Wadah arang aktif handmade dari perajin lokal. Setiap piece unik — perpaduan fungsi udara bersih dan estetika kriya nusantara.',
-    icon: '🏺',
-    features: ['Handmade UMKM lokal', 'Dekorasi + fungsi', 'Isi ulang tersedia'],
-    tags: ['Dekorasi', 'Hadiah'],
-    badge: 'Edisi Kriya',
-    badgeType: 'coconut',
-    href: '#product-artisan',
-  },
-  {
-    id: 'gift-set',
-    name: 'Gift Set',
-    tagline: 'Hadiah Bermakna. Dampak Nyata.',
-    description:
-      'Paket kompilasi terkurasi — Artisan Holder + Pouch dalam kotak hadiah premium daur ulang. Pilihan suvenir yang bercerita.',
-    icon: '🎁',
-    features: ['Kemasan hadiah premium', 'Kombinasi 2–3 produk', 'Kartu pesan personal'],
-    tags: ['Suvenir', 'Hadiah', 'Korporat'],
-    badge: 'Edisi Spesial',
-    badgeType: 'sage',
-    href: '#product-gift-set',
-  },
-];
+import { PRODUCTS, CONTACT } from '../../config/site';
 ---
 
 <section id="products" class="section products">
@@ -72,79 +17,129 @@ const products = [
         Temukan Solusi<br />
         <em>yang Tepat untuk Ruangan Anda.</em>
       </h2>
-      <p class="text-body-lg text-charcoal-soft" style="max-width: 52ch;">
-        Setiap varian COCOSORB dirancang untuk konteks dan kebutuhan yang berbeda —
-        semuanya berbasis arang aktif tempurung kelapa.
+      <p class="text-body-lg text-charcoal-soft products__intro">
+        Setiap varian COCOSORB dirancang untuk konteks dan kebutuhan yang berbeda -
+        semuanya berbasis arang aktif tempurung kelapa lokal.
       </p>
     </div>
 
-    <!-- Product Grid -->
+    <!-- Grid -->
     <div class="products__grid">
-      {products.map((product, index) => (
+      {PRODUCTS.map((product, index) => (
         <article
-          class={`product-card reveal delay-${(index + 1) * 100}`}
+          class={`pcard reveal delay-${(index % 2 + 1) * 100}`}
           id={`product-${product.id}`}
-          aria-label={`Produk: ${product.name}`}
+          aria-label={product.fullName}
         >
-          <!-- Visual -->
-          <div class="product-card__visual">
-            <div class="product-card__icon" aria-hidden="true">{product.icon}</div>
+          <!-- Image area -->
+          <div class="pcard__img-wrap">
+            <div
+              class="pcard__img-placeholder"
+              style={`background: ${product.imagePlaceholder};`}
+              role="img"
+              aria-label={`Foto ${product.fullName} - segera hadir`}
+            >
+              <!-- Subtle grid texture -->
+              <div class="pcard__img-grid" aria-hidden="true"></div>
+              <!-- Product name watermark -->
+              <div class="pcard__img-watermark" aria-hidden="true">
+                <span class="pcard__img-wm-brand">COCOSORB</span>
+                <span class="pcard__img-wm-name">{product.name}</span>
+              </div>
+            </div>
+
+            <!-- Badge -->
             {product.badge && (
-              <span class={`badge badge-${product.badgeType} product-card__badge`}>
+              <span class={`badge badge-${product.badgeType} pcard__badge`}>
                 {product.badge}
               </span>
             )}
           </div>
 
-          <!-- Content -->
-          <div class="product-card__body">
+          <!-- Body -->
+          <div class="pcard__body">
+
             <!-- Tags -->
-            <div class="product-card__tags">
+            <div class="pcard__tags">
               {product.tags.map(tag => (
-                <span class="product-card__tag">{tag}</span>
+                <span class="pcard__tag">{tag}</span>
               ))}
             </div>
 
-            <h3 class="product-card__name">COCOSORB {product.name}</h3>
-            <p class="product-card__tagline">{product.tagline}</p>
-            <p class="product-card__desc">{product.description}</p>
+            <h3 class="pcard__name">{product.fullName}</h3>
+            <p class="pcard__tagline">{product.tagline}</p>
+            <p class="pcard__desc">{product.description}</p>
 
             <!-- Features -->
-            <ul class="product-card__features" aria-label="Fitur utama">
+            <ul class="pcard__features" aria-label="Fitur utama">
               {product.features.map(f => (
-                <li class="product-card__feature">
-                  <svg class="product-card__check" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
-                    <path d="M4.5 7l2 2L9.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <li class="pcard__feature">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" class="pcard__check">
+                    <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M4.5 7l2 2L9.5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   {f}
                 </li>
               ))}
             </ul>
 
-            <!-- CTA -->
-            <a href={product.href} class="btn btn-outline product-card__cta" id={`product-cta-${product.id}`}>
-              Lihat Detail
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
+            <!-- Purchase CTAs -->
+            <div class="pcard__actions">
+              <a
+                href={`https://wa.me/${CONTACT.whatsapp.number}?text=${encodeURIComponent(product.whatsappMessage)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary pcard__btn"
+                id={`product-wa-${product.id}`}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z M12 0C5.373 0 0 5.373 0 12c0 2.083.535 4.04 1.472 5.745L0 24l6.405-1.438A11.93 11.93 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.658-.518-5.175-1.415l-.371-.22-3.802.854.855-3.717-.242-.383A9.937 9.937 0 0 1 2 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/>
+                </svg>
+                Pesan via WhatsApp
+              </a>
+
+              {product.shopeeUrl && (
+                <div class="pcard__marketplace">
+                  <a
+                    href={product.shopeeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pcard__market-link"
+                    id={`product-shopee-${product.id}`}
+                    aria-label={`Beli ${product.fullName} di Shopee`}
+                  >
+                    Shopee
+                  </a>
+                  <span class="pcard__market-sep" aria-hidden="true">·</span>
+                  <a
+                    href={product.tokopediaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pcard__market-link"
+                    id={`product-tokopedia-${product.id}`}
+                    aria-label={`Beli ${product.fullName} di Tokopedia`}
+                  >
+                    Tokopedia
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </article>
       ))}
     </div>
 
-    <!-- Bottom CTA -->
+    <!-- Bottom -->
     <div class="products__bottom reveal">
-      <p class="text-charcoal-soft">Butuh rekomendasi produk untuk kebutuhan spesifik?</p>
+      <p class="text-charcoal-soft">Butuh rekomendasi atau pembelian dalam jumlah besar?</p>
       <a
-        href="https://wa.me/62XXXXXXXXXX?text=Halo%20COCOSORB%2C%20saya%20ingin%20konsultasi%20produk"
+        href={`https://wa.me/${CONTACT.whatsapp.number}?text=${encodeURIComponent('Halo COCOSORB, saya ingin konsultasi produk untuk kebutuhan spesifik.')}`}
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn-primary"
-        id="products-wa-cta"
+        class="btn btn-outline"
+        id="products-consult-cta"
       >
-        💬 Konsultasi via WhatsApp
+        Konsultasi Produk
       </a>
     </div>
 
@@ -162,6 +157,7 @@ const products = [
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 3.5rem;
+    max-width: 640px;
   }
 
   .products__title {
@@ -174,68 +170,105 @@ const products = [
     color: var(--color-coconut);
   }
 
+  .products__intro { margin: 0; }
+
   /* ── Product Grid ────────────────────────────── */
   .products__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1.75rem;
     margin-bottom: 3rem;
   }
 
   /* ── Product Card ────────────────────────────── */
-  .product-card {
+  .pcard {
     background-color: var(--color-surface);
     border-radius: var(--radius-xl);
     border: 1px solid var(--color-mist);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: var(--shadow-card);
     transition:
       box-shadow var(--duration-base) var(--ease-smooth),
       transform var(--duration-base) var(--ease-smooth),
       border-color var(--duration-base) var(--ease-smooth);
   }
 
-  .product-card:hover {
+  .pcard:hover {
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-6px);
-    border-color: var(--color-coconut-light);
+    border-color: rgba(164,130,97,0.3);
   }
 
-  /* Visual area */
-  .product-card__visual {
+  /* Image wrapper */
+  .pcard__img-wrap {
     position: relative;
-    background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--color-coconut) 8%, var(--color-canvas)),
-      color-mix(in srgb, var(--color-sage) 5%, var(--color-surface))
-    );
-    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .pcard__img-placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 0.75rem;
+    overflow: hidden;
+    transition: transform var(--duration-slow) var(--ease-smooth);
   }
 
-  .product-card__icon {
-    font-size: 4rem;
-    line-height: 1;
-    filter: drop-shadow(0 4px 12px rgba(164,130,97,0.2));
-    transition: transform var(--duration-base) var(--ease-bounce);
+  .pcard:hover .pcard__img-placeholder {
+    transform: scale(1.02);
   }
 
-  .product-card:hover .product-card__icon {
-    transform: scale(1.1);
+  /* Fine grid on placeholder */
+  .pcard__img-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
-  .product-card__badge {
+  /* Text watermark */
+  .pcard__img-watermark {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .pcard__img-wm-brand {
+    font-family: var(--font-sans);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .pcard__img-wm-name {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.02em;
+  }
+
+  /* Badge */
+  .pcard__badge {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    left: 1rem;
   }
 
-  /* Body area */
-  .product-card__body {
+  /* Body */
+  .pcard__body {
     padding: 1.75rem;
     display: flex;
     flex-direction: column;
@@ -243,13 +276,14 @@ const products = [
     flex: 1;
   }
 
-  .product-card__tags {
+  /* Tags */
+  .pcard__tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.375rem;
   }
 
-  .product-card__tag {
+  .pcard__tag {
     font-size: var(--text-caption);
     font-weight: 600;
     letter-spacing: 0.06em;
@@ -257,10 +291,11 @@ const products = [
     color: var(--color-charcoal-soft);
     background-color: var(--color-mist);
     border-radius: var(--radius-sm);
-    padding: 0.2rem 0.5rem;
+    padding: 0.2rem 0.6rem;
   }
 
-  .product-card__name {
+  /* Name */
+  .pcard__name {
     font-family: var(--font-serif);
     font-size: var(--text-h4);
     color: var(--color-charcoal);
@@ -268,33 +303,33 @@ const products = [
     line-height: 1.3;
   }
 
-  .product-card__tagline {
+  .pcard__tagline {
     font-size: var(--text-body-sm);
     font-weight: 500;
     color: var(--color-coconut);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     margin: 0;
   }
 
-  .product-card__desc {
+  .pcard__desc {
     font-size: var(--text-body-sm);
     color: var(--color-charcoal-soft);
-    line-height: 1.7;
+    line-height: 1.75;
     margin: 0;
   }
 
-  /* Features list */
-  .product-card__features {
+  /* Features */
+  .pcard__features {
     list-style: none;
-    margin: 0;
+    margin: 0.25rem 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
+    gap: 0.5rem;
     flex: 1;
   }
 
-  .product-card__feature {
+  .pcard__feature {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -302,24 +337,62 @@ const products = [
     color: var(--color-charcoal-soft);
   }
 
-  .product-card__check {
+  .pcard__check {
     color: var(--color-sage);
     flex-shrink: 0;
   }
 
-  /* CTA */
-  .product-card__cta {
-    margin-top: 0.5rem;
-    align-self: flex-start;
-  }
-
-  /* ── Bottom CTA ──────────────────────────────── */
-  .products__bottom {
-    text-align: center;
+  /* Actions */
+  .pcard__actions {
     display: flex;
     flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-mist);
+  }
+
+  .pcard__btn {
+    justify-content: center;
+  }
+
+  .pcard__marketplace {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .pcard__market-link {
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-charcoal-soft);
+    text-decoration: none;
+    transition: color var(--duration-base) var(--ease-smooth);
+  }
+
+  .pcard__market-link:hover {
+    color: var(--color-coconut);
+  }
+
+  .pcard__market-sep {
+    color: var(--color-mist-dark);
+    font-size: 1rem;
+  }
+
+  /* ── Bottom ──────────────────────────────────── */
+  .products__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
+  }
+
+  .products__bottom p {
+    margin: 0;
   }
 
   /* ── Responsive ─────────────────────────────── */

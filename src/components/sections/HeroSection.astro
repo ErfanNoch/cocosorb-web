@@ -1,9 +1,9 @@
 ---
 /**
- * HeroSection — COCOSORB
- * Elegant hero: logo prominent, headline serif, product placeholder, no emoji.
+ * HeroSection - COCOSORB
+ * Elegant hero: foto ilustrasi produk dengan caption disclaimer, headline serif, no em dash.
  */
-import { BRAND, HERO, CONTACT } from '../../config/site';
+import { BRAND, HERO } from "../../config/site";
 ---
 
 <section id="hero" class="hero" aria-label="Halaman utama COCOSORB">
@@ -15,53 +15,60 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
   </div>
 
   <div class="container hero__inner">
-
     <!-- Left: Content -->
     <div class="hero__content">
-
-      <!-- Logo mark -->
-      <div class="hero__logo-wrap animate-fade-in">
-        <img
-          src={BRAND.logoSrc}
-          alt={BRAND.logoAlt}
-          class="hero__logo"
-          width="220"
-          height="74"
-          loading="eager"
-          decoding="async"
-        />
+      <!-- Eyebrow label pengenal -->
+      <div class="hero__eyebrow animate-fade-in">
+        <span class="hero__eyebrow-line"></span>
+        <span class="hero__eyebrow-text">Inovasi Sirkular Lokal</span>
       </div>
 
       <!-- Headline -->
       <h1 class="hero__headline animate-fade-in-up delay-100">
         {HERO.headline.map((line, i) =>
-          i === HERO.headlineAccent
-            ? <em>{line}</em>
-            : <span>{line}</span>
+          i === HERO.headlineAccent ? <em>{line}</em> : <span>{line}</span>,
         )}
       </h1>
 
-      <!-- Sub -->
-      <p class="hero__sub animate-fade-in-up delay-200">
-        {HERO.subheadline}
-      </p>
+      <!-- Subheadline -->
+      <p class="hero__sub animate-fade-in-up delay-200">{HERO.subheadline}</p>
 
       <!-- Badges -->
       <div class="hero__badges animate-fade-in-up delay-300">
-        {HERO.badges.map(b => (
+        {HERO.badges.map((b) => (
           <span class="badge badge-natural">{b}</span>
         ))}
       </div>
 
       <!-- CTA -->
       <div class="hero__cta animate-fade-in-up delay-400">
-        <a href={HERO.cta.primary.href} class="btn btn-primary" id="hero-cta-primary">
+        <a
+          href={HERO.cta.primary.href}
+          class="btn btn-primary"
+          id="hero-cta-primary"
+        >
           {HERO.cta.primary.label}
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-            <path d="M2.5 7.5h10M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M2.5 7.5h10M9 3.5l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
-        <a href={HERO.cta.secondary.href} class="btn btn-outline" id="hero-cta-secondary">
+        <a
+          href={HERO.cta.secondary.href}
+          class="btn btn-outline"
+          id="hero-cta-secondary"
+        >
           {HERO.cta.secondary.label}
         </a>
       </div>
@@ -83,37 +90,38 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
     </div>
 
     <!-- Right: Product Visual -->
-    <div class="hero__visual animate-scale-in delay-200" aria-hidden="true">
-
-      <!-- Main product image placeholder -->
-      <div class="hero__product-frame">
-        <div class="hero__product-placeholder">
+    <div class="hero__visual animate-scale-in delay-200">
+      <figure class="hero__product-frame">
+        <div class="hero__image-wrap">
           <img
-            src={BRAND.logoSrc}
-            alt=""
-            class="hero__product-logo-mark"
-            width="80"
-            height="80"
+            src="/hero_illustration.jpg"
+            alt="Ilustrasi produk COCOSORB arang aktif tempurung kelapa dalam wadah estetik dan pouch goni"
+            class="hero__product-img"
+            width="1200"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
           />
-          <p class="hero__product-placeholder-label">
-            Artisan Holder<br />
-            <span>Foto produk segera hadir</span>
-          </p>
         </div>
 
-        <!-- Floating info cards — no emoji, pure type -->
+        <figcaption class="hero__caption">
+          *Visual di atas merupakan ilustrasi konseptual; produk akhir dapat
+          mengalami penyesuaian detail.
+        </figcaption>
+
+        <!-- Floating info cards - no emoji, pure type -->
         <div class="hero__pill hero__pill--top animate-float">
           <div class="hero__pill-dot hero__pill-dot--green"></div>
-          <span>Adsorpsi Aktif — Bukan Masking</span>
+          <span>Adsorpsi Aktif · Tanpa Masking</span>
         </div>
 
         <div class="hero__pill hero__pill--bottom animate-float delay-300">
           <div class="hero__pill-dot hero__pill-dot--warm"></div>
           <span>Zero VOC · Aman untuk Keluarga</span>
         </div>
-      </div>
+      </figure>
     </div>
-
   </div>
 
   <!-- Scroll cue -->
@@ -139,10 +147,10 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
 
   .hero__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 4.5rem;
     align-items: center;
-    padding-block: var(--space-section);
+    padding-block: clamp(3rem, 6vw, 5.5rem);
   }
 
   /* ── Background ──────────────────────────────── */
@@ -162,7 +170,11 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
   .hero__bg-orb--warm {
     width: min(60vw, 700px);
     height: min(60vw, 700px);
-    background: radial-gradient(circle, rgba(164,130,97,0.12), transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(164, 130, 97, 0.14),
+      transparent 70%
+    );
     top: -15%;
     right: -8%;
   }
@@ -170,18 +182,22 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
   .hero__bg-orb--sage {
     width: min(40vw, 500px);
     height: min(40vw, 500px);
-    background: radial-gradient(circle, rgba(110,127,101,0.08), transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(110, 127, 101, 0.09),
+      transparent 70%
+    );
     bottom: -10%;
     left: -5%;
   }
 
-  /* Fine grid lines — organic paper feel */
+  /* Fine grid lines - organic paper feel */
   .hero__bg-lines {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(164,130,97,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(164,130,97,0.04) 1px, transparent 1px);
+      linear-gradient(rgba(164, 130, 97, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(164, 130, 97, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
@@ -191,19 +207,30 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 1.6rem;
   }
 
-  /* Logo */
-  .hero__logo-wrap {
-    display: flex;
+  /* Eyebrow */
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
-  .hero__logo {
-    height: 56px;
-    width: auto;
-    object-fit: contain;
-    mix-blend-mode: multiply;
+  .hero__eyebrow-line {
+    width: 24px;
+    height: 1.5px;
+    background-color: var(--color-coconut);
+    border-radius: var(--radius-pill);
+  }
+
+  .hero__eyebrow-text {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-coconut-dark);
   }
 
   /* Headline */
@@ -235,7 +262,7 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
     color: var(--color-charcoal-soft);
     line-height: 1.8;
     margin: 0;
-    max-width: 46ch;
+    max-width: 48ch;
   }
 
   /* Badges */
@@ -251,6 +278,7 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
+    padding-top: 0.25rem;
   }
 
   /* Stats */
@@ -258,7 +286,7 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding-top: 0.25rem;
+    padding-top: 0.75rem;
   }
 
   .hero__stat {
@@ -302,56 +330,55 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
   .hero__product-frame {
     position: relative;
     width: 100%;
-    max-width: 400px;
-  }
-
-  .hero__product-placeholder {
-    width: 100%;
-    aspect-ratio: 3/4;
-    background: linear-gradient(160deg, #EDE8E0, #DDD5C8);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-mist);
-    box-shadow:
-      0 24px 64px rgba(31,33,36,0.1),
-      0 0 0 1px rgba(255,255,255,0.6) inset;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    transition: transform var(--duration-slow) var(--ease-smooth);
-  }
-
-  .hero__product-placeholder:hover {
-    transform: translateY(-6px);
-  }
-
-  .hero__product-logo-mark {
-    width: 72px;
-    height: 72px;
-    object-fit: contain;
-    opacity: 0.35;
-    mix-blend-mode: multiply;
-  }
-
-  .hero__product-placeholder-label {
-    font-family: var(--font-sans);
-    font-size: var(--text-body-sm);
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    color: var(--color-charcoal-soft);
-    text-align: center;
-    line-height: 1.6;
+    max-width: 460px;
     margin: 0;
   }
 
-  .hero__product-placeholder-label span {
+  .hero__image-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3.4;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid rgba(164, 130, 97, 0.2);
+    box-shadow:
+      0 28px 64px -12px rgba(31, 33, 36, 0.16),
+      0 12px 24px -8px rgba(164, 130, 97, 0.12);
+    background-color: #ede8e0;
+    position: relative;
+    transition:
+      transform var(--duration-slow) var(--ease-smooth),
+      box-shadow var(--duration-slow) var(--ease-smooth);
+  }
+
+  .hero__image-wrap:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 34px 72px -12px rgba(31, 33, 36, 0.2),
+      0 16px 30px -8px rgba(164, 130, 97, 0.16);
+  }
+
+  .hero__product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    font-size: var(--text-caption);
-    font-weight: 400;
-    color: var(--color-mist-dark);
-    margin-top: 0.25rem;
+    transition: transform 700ms var(--ease-smooth);
+  }
+
+  .hero__image-wrap:hover .hero__product-img {
+    transform: scale(1.03);
+  }
+
+  /* Disclaimer Caption: Sangat sangat kecil */
+  .hero__caption {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem; /* sangat sangat kecil ~11px */
+    color: #8c867c;
+    text-align: center;
+    margin-top: 0.65rem;
     font-style: italic;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
   }
 
   /* Floating pills */
@@ -360,32 +387,43 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    background-color: rgba(255,255,255,0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--color-mist);
     border-radius: var(--radius-pill);
-    padding: 0.625rem 1rem;
+    padding: 0.55rem 1rem;
     font-family: var(--font-sans);
-    font-size: 0.8125rem;
+    font-size: 0.78125rem;
     font-weight: 500;
     color: var(--color-charcoal);
-    box-shadow: 0 4px 16px rgba(31,33,36,0.08);
+    box-shadow: 0 8px 24px rgba(31, 33, 36, 0.1);
     white-space: nowrap;
+    z-index: 2;
   }
 
-  .hero__pill--top    { top: 10%;  right: -12%; }
-  .hero__pill--bottom { bottom: 14%; left: -12%; }
+  .hero__pill--top {
+    top: 6%;
+    right: -8%;
+  }
+  .hero__pill--bottom {
+    bottom: 12%;
+    left: -8%;
+  }
 
   .hero__pill-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     flex-shrink: 0;
   }
 
-  .hero__pill-dot--green { background-color: var(--color-sage); }
-  .hero__pill-dot--warm  { background-color: var(--color-coconut); }
+  .hero__pill-dot--green {
+    background-color: var(--color-sage);
+  }
+  .hero__pill-dot--warm {
+    background-color: var(--color-coconut);
+  }
 
   /* ── Scroll Cue ──────────────────────────────── */
   .hero__scroll-cue {
@@ -421,36 +459,54 @@ import { BRAND, HERO, CONTACT } from '../../config/site';
   }
 
   @keyframes scrollWheel {
-    0%   { opacity: 1; transform: translateY(0); }
-    75%  { opacity: 0; transform: translateY(12px); }
-    100% { opacity: 0; }
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    75% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    100% {
+      opacity: 0;
+    }
   }
 
   /* ── Responsive ─────────────────────────────── */
   @media (max-width: 1024px) {
     .hero__inner {
       grid-template-columns: 1fr;
-      gap: 3rem;
+      gap: 3.5rem;
     }
 
-    .hero__visual { order: -1; }
-
-    .hero__product-frame { max-width: 280px; }
-
-    .hero__pill--top    { right: -4%; }
-    .hero__pill--bottom { left: -4%; }
-
-    .hero__sub, .hero__logo-wrap {
-      max-width: none;
+    .hero__visual {
+      order: -1;
+    }
+    .hero__product-frame {
+      max-width: 420px;
+    }
+    .hero__pill--top {
+      right: -2%;
+    }
+    .hero__pill--bottom {
+      left: -2%;
     }
   }
 
   @media (max-width: 640px) {
-    .hero__pill    { display: none; }
-    .hero__scroll-cue { display: none; }
+    .hero__pill {
+      display: none;
+    }
+    .hero__scroll-cue {
+      display: none;
+    }
 
     .hero__headline {
-      font-size: clamp(2rem, 8vw, 3rem);
+      font-size: clamp(2.125rem, 8.5vw, 3rem);
+    }
+
+    .hero__inner {
+      padding-block: 2.5rem 3.5rem;
     }
   }
 </style>

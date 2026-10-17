@@ -1,0 +1,153 @@
+---
+/**
+ * WhatsAppButton - COCOSORB
+ * Floating WhatsApp button yang rapi, cantik, dan accessible.
+ */
+import { CONTACT } from '../config/site';
+---
+
+<aside class="wa-float" aria-label="Tautan WhatsApp Cepat">
+  <a
+    href={CONTACT.whatsapp.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="wa-float__btn"
+    id="floating-wa-button"
+    aria-label="Chat kami langsung via WhatsApp"
+  >
+    <!-- Pulse ring effect -->
+    <span class="wa-float__ring" aria-hidden="true"></span>
+
+    <!-- WhatsApp Icon SVG -->
+    <svg
+      class="wa-float__icon"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.083.535 4.04 1.472 5.745L0 24l6.405-1.438A11.93 11.93 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.658-.518-5.175-1.415l-.371-.22-3.802.854.855-3.717-.242-.383A9.937 9.937 0 0 1 2 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/>
+    </svg>
+
+    <!-- Expandable Label Tooltip -->
+    <span class="wa-float__tooltip">
+      <span>Tanya via WhatsApp</span>
+    </span>
+  </a>
+</aside>
+
+<style>
+  .wa-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 99;
+  }
+
+  .wa-float__btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #25D366;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: var(--radius-pill);
+    padding: 0.875rem;
+    box-shadow:
+      0 10px 25px -4px rgba(37, 211, 102, 0.45),
+      0 4px 12px rgba(31, 33, 36, 0.12);
+    transition:
+      transform var(--duration-base) var(--ease-bounce),
+      box-shadow var(--duration-base) var(--ease-smooth),
+      background-color var(--duration-base) var(--ease-smooth);
+    outline: none;
+  }
+
+  .wa-float__btn:hover,
+  .wa-float__btn:focus-visible {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow:
+      0 16px 32px -4px rgba(37, 211, 102, 0.55),
+      0 8px 16px rgba(31, 33, 36, 0.16);
+    background-color: #20BA5A;
+  }
+
+  .wa-float__btn:focus-visible {
+    outline: 2px solid var(--color-charcoal);
+    outline-offset: 3px;
+  }
+
+  .wa-float__icon {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* Pulse wave effect */
+  .wa-float__ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: var(--radius-pill);
+    border: 2px solid #25D366;
+    opacity: 0.6;
+    animation: waPulse 2.4s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    pointer-events: none;
+  }
+
+  @keyframes waPulse {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.22);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.22);
+      opacity: 0;
+    }
+  }
+
+  /* Tooltip text */
+  .wa-float__tooltip {
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition:
+      max-width 350ms var(--ease-smooth),
+      opacity 250ms var(--ease-smooth),
+      padding 350ms var(--ease-smooth);
+    padding-left: 0;
+  }
+
+  .wa-float__btn:hover .wa-float__tooltip,
+  .wa-float__btn:focus-visible .wa-float__tooltip {
+    max-width: 160px;
+    opacity: 1;
+    padding-left: 0.625rem;
+    padding-right: 0.375rem;
+  }
+
+  @media (max-width: 768px) {
+    .wa-float {
+      bottom: 1.5rem;
+      right: 1.25rem;
+    }
+
+    .wa-float__btn {
+      padding: 0.75rem;
+    }
+
+    .wa-float__icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+</style>

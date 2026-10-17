@@ -1,32 +1,34 @@
 ---
 /**
- * index.astro — COCOSORB Homepage
- * Merakit semua section dalam urutan yang sudah ditentukan.
- *
- * Sections:
+ * index.astro - COCOSORB Homepage
+ * Merakit semua section dalam urutan yang sudah ditentukan:
  *   1. Hero
- *   2. About & Mission
+ *   2. About & Mission (Siklus Sirkular)
  *   3. Products Showcase
  *   4. How It Works
  *   5. Testimonials
+ *   6. Netlify Contact Form
  *
  * Navbar & Footer diinjeksikan melalui named slots di BaseLayout.
+ * Floating WhatsApp button aktif di pojok halaman.
  */
 
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 
-import HeroSection        from '../components/sections/HeroSection.astro';
-import AboutSection       from '../components/sections/AboutSection.astro';
-import ProductsSection    from '../components/sections/ProductsSection.astro';
-import HowItWorksSection  from '../components/sections/HowItWorksSection.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import ProductsSection from '../components/sections/ProductsSection.astro';
+import HowItWorksSection from '../components/sections/HowItWorksSection.astro';
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
 ---
 
 <Layout
-  title="COCOSORB — Solusi Alami Pengendali Bau Berbasis Sirkular Lokal"
-  description="COCOSORB menggunakan arang aktif dari tempurung kelapa dalam wadah kriya UMKM lokal untuk menyerap bau secara alami — VOC-free, estetis, dan berkelanjutan."
+  title="COCOSORB - Solusi Alami Pengendali Bau Berbasis Sirkular Lokal"
+  description="COCOSORB menggunakan arang aktif dari tempurung kelapa dalam wadah kriya UMKM lokal untuk menyerap bau secara alami - VOC-free, estetis, dan berkelanjutan."
 >
   <!-- Navbar -->
   <Navbar slot="nav" />
@@ -37,6 +39,10 @@ import TestimonialsSection from '../components/sections/TestimonialsSection.astr
   <ProductsSection />
   <HowItWorksSection />
   <TestimonialsSection />
+  <ContactSection />
+
+  <!-- Floating WhatsApp -->
+  <WhatsAppButton />
 
   <!-- Footer -->
   <Footer slot="footer" />

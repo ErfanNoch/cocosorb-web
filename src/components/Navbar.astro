@@ -1,7 +1,7 @@
 ---
 /**
- * Navbar — COCOSORB
- * Logo image + clean links + mobile hamburger.
+ * Navbar - COCOSORB
+ * Navigasi bersih dengan brand tulisan teks COCOSORB saja.
  */
 import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
 ---
@@ -9,16 +9,9 @@ import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
 <header id="navbar" class="navbar">
   <div class="container navbar__inner">
 
-    <!-- Logo -->
-    <a href="/" class="navbar__logo" aria-label={`${BRAND.name} — Halaman Utama`}>
-      <img
-        src={BRAND.logoSrc}
-        alt={BRAND.logoAlt}
-        class="navbar__logo-img"
-        width="120"
-        height="40"
-        loading="eager"
-      />
+    <!-- Brand: Tulisan saja COCOSORB -->
+    <a href="/" class="navbar__brand" aria-label={`${BRAND.name} - Halaman Utama`}>
+      <span class="navbar__brand-text">COCOSORB</span>
     </a>
 
     <!-- Desktop Nav -->
@@ -88,10 +81,10 @@ import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
   }
 
   .navbar.scrolled {
-    background-color: rgba(248, 246, 242, 0.9);
+    background-color: rgba(248, 246, 242, 0.92);
     backdrop-filter: blur(20px) saturate(1.6);
     -webkit-backdrop-filter: blur(20px) saturate(1.6);
-    box-shadow: 0 1px 0 var(--color-mist), 0 4px 32px rgba(31,33,36,0.05);
+    box-shadow: 0 1px 0 var(--color-mist), 0 4px 32px rgba(31, 33, 36, 0.05);
   }
 
   .navbar__inner {
@@ -102,20 +95,26 @@ import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
     gap: 2rem;
   }
 
-  /* ── Logo ───────────────────────────────────── */
-  .navbar__logo {
+  /* ── Brand Text ─────────────────────────────── */
+  .navbar__brand {
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    text-decoration: none;
   }
 
-  .navbar__logo-img {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    /* Blend with canvas so logo background disappears */
-    mix-blend-mode: multiply;
+  .navbar__brand-text {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-charcoal);
+    text-transform: uppercase;
+    transition: color var(--duration-base) var(--ease-smooth);
+  }
+
+  .navbar__brand:hover .navbar__brand-text {
+    color: var(--color-coconut);
   }
 
   /* ── Nav Links ──────────────────────────────── */
@@ -251,8 +250,8 @@ import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
 </style>
 
 <script>
-  const navbar    = document.getElementById('navbar') as HTMLElement | null;
-  const toggle    = document.getElementById('nav-toggle') as HTMLButtonElement | null;
+  const navbar = document.getElementById('navbar') as HTMLElement | null;
+  const toggle = document.getElementById('nav-toggle') as HTMLButtonElement | null;
   const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
 
   // Sticky scroll

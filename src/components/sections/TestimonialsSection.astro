@@ -1,50 +1,12 @@
 ---
 /**
- * TestimonialsSection — COCOSORB
- * Social proof: ulasan pengguna + ringkasan hasil uji lab.
+ * TestimonialsSection - COCOSORB
+ * Avatar initials (no emoji), star ratings, lab banner.
  */
-
-const testimonials = [
-  {
-    id: 'testi-1',
-    name: 'Rahma D.',
-    role: 'Ibu Rumah Tangga, Jakarta Selatan',
-    avatar: '👩',
-    rating: 5,
-    text: 'Lemari pakaian saya dulu selalu bau lembab. Setelah pasang COCOSORB Pouch, dalam 3 hari baunya hilang. Yang bikin senang, tidak ada wangi tiruan — beneran bersih!',
-    tags: ['Lemari', 'Pouch'],
-  },
-  {
-    id: 'testi-2',
-    name: 'Bima P.',
-    role: 'Mahasiswa Arsitektur, Bandung',
-    avatar: '👨‍💻',
-    rating: 5,
-    text: 'Kamar kost saya sempit dan sering bau. Artisan Holder-nya juga jadi hiasan meja. Dua fungsi sekaligus — dekorasi yang benar-benar berguna.',
-    tags: ['Artisan Holder', 'Kamar'],
-  },
-  {
-    id: 'testi-3',
-    name: 'Sari K.',
-    role: 'Pemilik Butik, Yogyakarta',
-    avatar: '👩‍💼',
-    rating: 5,
-    text: 'Saya order Gift Set untuk hampers karyawan. Tampilannya premium banget, dan ceritanya tentang upcycling bikin penerimanya terkesan. Bakal repeat order!',
-    tags: ['Gift Set', 'Korporat'],
-  },
-  {
-    id: 'testi-4',
-    name: 'Andi R.',
-    role: 'Penggemar Otomotif, Surabaya',
-    avatar: '🧑',
-    rating: 5,
-    text: 'Saya taruh Pouch di kabin mobil. Bau rokok bekas dari pemilik sebelumnya akhirnya hilang dalam 2 minggu. Jauh lebih baik dari parfum gantung biasa.',
-    tags: ['Pouch', 'Kabin Mobil'],
-  },
-];
+import { TESTIMONIALS, LAB_RESULT } from '../../config/site';
 ---
 
-<section id="testimonials" class="section testimonials">
+<section id="testimonials" class="section testi">
   <div class="container">
 
     <!-- Header -->
@@ -58,54 +20,67 @@ const testimonials = [
 
     <!-- Lab Result Banner -->
     <div class="testi__lab reveal delay-100">
-      <div class="testi__lab-icon" aria-hidden="true">🔬</div>
-      <div class="testi__lab-content">
-        <h3 class="testi__lab-title">Divalidasi Uji Laboratorium Independen</h3>
-        <p class="testi__lab-desc">
-          COCOSORB telah melalui uji penyerapan bau terhadap senyawa amonia (NH₃)
-          dan hidrogen sulfida (H₂S). Hasil menunjukkan pengurangan konsentrasi
-          hingga <strong>87%</strong> dalam kondisi ruang tertutup selama 24 jam.
-        </p>
+      <div class="testi__lab-icon-wrap" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M10 4V14L4 22H24L18 14V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 4H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="18" r="1.5" fill="currentColor" opacity="0.5"/>
+          <circle cx="16" cy="20" r="1" fill="currentColor" opacity="0.3"/>
+        </svg>
       </div>
-      <div class="testi__lab-stat">
-        <span class="testi__lab-num">87%</span>
-        <span class="testi__lab-label">Pengurangan Bau (Uji Lab)</span>
+      <div class="testi__lab-body">
+        <h3 class="testi__lab-title">Divalidasi Uji Laboratorium Independen</h3>
+        <p class="testi__lab-desc">{LAB_RESULT.description}</p>
+      </div>
+      <div class="testi__lab-stat" aria-label={`Hasil: ${LAB_RESULT.percentage} pengurangan bau`}>
+        <span class="testi__lab-num">{LAB_RESULT.percentage}</span>
+        <span class="testi__lab-label">{LAB_RESULT.label}</span>
       </div>
     </div>
 
-    <!-- Testimonial Cards Grid -->
+    <!-- Cards Grid -->
     <div class="testi__grid">
-      {testimonials.map((t, index) => (
+      {TESTIMONIALS.map((t, index) => (
         <article
-          class={`testi__card reveal delay-${(index + 1) * 100}`}
+          class={`tcard reveal delay-${(index % 2 + 1) * 100}`}
           id={t.id}
           aria-label={`Ulasan dari ${t.name}`}
         >
-          <!-- Stars -->
-          <div class="testi__stars" aria-label={`${t.rating} dari 5 bintang`}>
-            {Array.from({ length: t.rating }).map(() => (
-              <span aria-hidden="true">★</span>
+          <!-- Rating -->
+          <div class="tcard__stars" role="img" aria-label={`${t.rating} dari 5 bintang`}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill={i < t.rating ? 'currentColor' : 'none'}
+                stroke="currentColor"
+                stroke-width="1"
+                aria-hidden="true"
+              >
+                <polygon points="7,1.5 8.8,5.5 13,5.9 9.8,8.7 10.8,13 7,10.8 3.2,13 4.2,8.7 1,5.9 5.2,5.5"/>
+              </svg>
             ))}
           </div>
 
           <!-- Quote -->
-          <blockquote class="testi__quote">
-            "{t.text}"
+          <blockquote class="tcard__quote">
+            <p>"{t.text}"</p>
           </blockquote>
 
           <!-- Tags -->
-          <div class="testi__tags">
+          <div class="tcard__tags">
             {t.tags.map(tag => (
               <span class="badge badge-natural">{tag}</span>
             ))}
           </div>
 
           <!-- Author -->
-          <div class="testi__author">
-            <div class="testi__avatar" aria-hidden="true">{t.avatar}</div>
+          <div class="tcard__author">
+            <div class="tcard__avatar" aria-hidden="true">{t.initials}</div>
             <div>
-              <p class="testi__name">{t.name}</p>
-              <p class="testi__role">{t.role}</p>
+              <p class="tcard__name">{t.name}</p>
+              <p class="tcard__role">{t.role}</p>
             </div>
           </div>
         </article>
@@ -116,13 +91,13 @@ const testimonials = [
 </section>
 
 <style>
-  .testimonials {
+  .testi {
     background-color: var(--color-canvas);
   }
 
   /* ── Header ──────────────────────────────────── */
   .testi__header {
-    max-width: 560px;
+    max-width: 520px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -141,29 +116,31 @@ const testimonials = [
 
   /* ── Lab Banner ──────────────────────────────── */
   .testi__lab {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: 1.5rem;
-    padding: 1.75rem 2rem;
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--color-sage) 10%, var(--color-surface)),
-      color-mix(in srgb, var(--color-coconut) 6%, var(--color-surface))
-    );
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--color-surface);
     border-radius: var(--radius-xl);
-    border: 1px solid color-mix(in srgb, var(--color-sage) 25%, transparent);
+    border: 1px solid var(--color-mist);
     margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-card);
   }
 
-  .testi__lab-icon {
-    font-size: 2.5rem;
-    line-height: 1;
+  .testi__lab-icon-wrap {
+    width: 56px;
+    height: 56px;
+    background-color: color-mix(in srgb, var(--color-sage) 10%, transparent);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-sage);
     flex-shrink: 0;
   }
 
-  .testi__lab-content {
-    flex: 1;
-  }
+  .testi__lab-body { flex: 1; }
 
   .testi__lab-title {
     font-family: var(--font-serif);
@@ -180,17 +157,20 @@ const testimonials = [
   }
 
   .testi__lab-stat {
-    text-align: center;
+    text-align: right;
     flex-shrink: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-mist);
   }
 
   .testi__lab-num {
     display: block;
     font-family: var(--font-serif);
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 700;
     color: var(--color-sage);
     line-height: 1;
+    letter-spacing: -0.03em;
   }
 
   .testi__lab-label {
@@ -201,19 +181,19 @@ const testimonials = [
     text-transform: uppercase;
     color: var(--color-charcoal-soft);
     max-width: 120px;
-    margin-top: 0.25rem;
-    text-align: center;
+    margin-top: 0.375rem;
+    line-height: 1.4;
   }
 
-  /* ── Testimonial Grid ────────────────────────── */
+  /* ── Grid ────────────────────────────────────── */
   .testi__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
   }
 
-  /* ── Testimonial Card ────────────────────────── */
-  .testi__card {
+  /* ── Card ────────────────────────────────────── */
+  .tcard {
     background-color: var(--color-surface);
     border-radius: var(--radius-xl);
     border: 1px solid var(--color-mist);
@@ -224,76 +204,75 @@ const testimonials = [
     box-shadow: var(--shadow-card);
     transition:
       box-shadow var(--duration-base) var(--ease-smooth),
-      transform var(--duration-base) var(--ease-smooth);
+      transform var(--duration-base) var(--ease-smooth),
+      border-color var(--duration-base) var(--ease-smooth);
   }
 
-  .testi__card:hover {
+  .tcard:hover {
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-4px);
+    border-color: rgba(164,130,97,0.25);
   }
 
   /* Stars */
-  .testi__stars {
+  .tcard__stars {
     display: flex;
-    gap: 0.125rem;
+    gap: 2px;
     color: var(--color-coconut);
-    font-size: 1rem;
   }
 
   /* Quote */
-  .testi__quote {
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    font-style: italic;
-    color: var(--color-charcoal);
-    line-height: 1.7;
+  .tcard__quote {
     margin: 0;
     flex: 1;
-    position: relative;
-    padding-left: 1.25rem;
   }
 
-  .testi__quote::before {
-    content: '"';
-    position: absolute;
-    left: 0;
-    top: -0.25rem;
-    font-size: 2rem;
-    color: var(--color-coconut-light);
-    font-style: normal;
-    line-height: 1;
+  .tcard__quote p {
+    font-family: var(--font-serif);
+    font-size: 0.9375rem;
+    font-style: italic;
+    color: var(--color-charcoal);
+    line-height: 1.75;
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-coconut-light);
   }
 
   /* Tags */
-  .testi__tags {
+  .tcard__tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.375rem;
   }
 
   /* Author */
-  .testi__author {
+  .tcard__author {
     display: flex;
     align-items: center;
     gap: 0.875rem;
-    padding-top: 0.75rem;
+    padding-top: 0.875rem;
     border-top: 1px solid var(--color-mist);
+    margin-top: auto;
   }
 
-  .testi__avatar {
-    font-size: 2rem;
-    line-height: 1;
-    width: 44px;
-    height: 44px;
-    background-color: var(--color-mist);
+  .tcard__avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    background-color: color-mix(in srgb, var(--color-coconut) 12%, var(--color-canvas));
+    border: 1px solid var(--color-mist-dark);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-coconut-dark);
     flex-shrink: 0;
   }
 
-  .testi__name {
+  .tcard__name {
     font-family: var(--font-sans);
     font-size: var(--text-body-sm);
     font-weight: 600;
@@ -301,7 +280,7 @@ const testimonials = [
     margin: 0;
   }
 
-  .testi__role {
+  .tcard__role {
     font-size: var(--text-caption);
     color: var(--color-charcoal-soft);
     margin: 0.125rem 0 0;
@@ -310,30 +289,26 @@ const testimonials = [
   /* ── Responsive ─────────────────────────────── */
   @media (max-width: 1024px) {
     .testi__lab {
-      flex-wrap: wrap;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
     }
 
     .testi__lab-stat {
-      width: 100%;
+      grid-column: 1 / -1;
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--color-mist);
+      padding-top: 1rem;
       text-align: left;
       display: flex;
       align-items: center;
       gap: 1rem;
     }
 
-    .testi__lab-num {
-      font-size: 2rem;
-    }
-
-    .testi__lab-label {
-      max-width: none;
-      text-align: left;
-    }
+    .testi__lab-label { max-width: none; }
   }
 
   @media (max-width: 768px) {
-    .testi__grid {
-      grid-template-columns: 1fr;
-    }
+    .testi__grid { grid-template-columns: 1fr; }
   }
 </style>

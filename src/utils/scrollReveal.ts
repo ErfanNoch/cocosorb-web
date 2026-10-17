@@ -1,5 +1,5 @@
 /**
- * COCOSORB — Scroll Reveal Utility
+ * COCOSORB - Scroll Reveal Utility
  * Menggunakan IntersectionObserver untuk trigger animasi
  * saat elemen masuk ke viewport.
  *
@@ -14,7 +14,7 @@ export function initScrollReveal() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
-          // Stop observing setelah reveal — performa lebih baik
+          // Stop observing setelah reveal: performa lebih baik
           observer.unobserve(entry.target);
         }
       });
