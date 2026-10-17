@@ -82,17 +82,17 @@ export const HERO = {
 
 export const ABOUT = {
   eyebrow: 'Tentang Kami & Misi',
-  title: ['Dari Residu Alami Lokal,', 'Menuju Udara yang Lebih Bersih.'],
+  title: ['Dari Limbah UMKM & Industri,', 'Menuju Udara yang Lebih Bersih.'],
   titleAccent: 1,
   description:
-    'Material organik dan biomassa lokal yang belum termanfaatkan sering kali terbuang atau mencemari lingkungan. Kami mengolahnya menjadi penyerap bau alami berdaya guna tinggi dalam balutan kriya nusantara.',
+    'Sentra kuliner, UMKM pengolahan, dan industri kelapa menghasilkan tonase limbah tempurung dalam jumlah besar setiap harinya. COCOSORB menyerap residu sampingan tersebut untuk diolah menjadi karbon aktif bernilai guna tinggi, menciptakan simbiosis sirkular yang memberdayakan ekosistem lokal.',
   process: [
     {
       id: 'step-1',
-      label: 'Biomassa & Residu Alami',
-      shortLabel: 'Residu Alami',
+      label: 'Penyerapan Limbah UMKM & Industri',
+      shortLabel: 'Limbah UMKM & Industri',
       description:
-        'Pemanfaatan residu biomassa lokal dan tempurung kelapa dari mitra terpercaya - material organik berharga yang sebelumnya terbuang atau dibakar tanpa nilai tambah.',
+        'Menyerap dan menampung limbah tempurung kelapa langsung dari sentra UMKM, sentra kopra, dan industri pengolahan lokal - material sisa produksi yang sebelumnya menumpuk atau dibakar mencemari udara, kini diselamatkan menjadi bahan baku bernilai.',
     },
     {
       id: 'step-2',
@@ -121,7 +121,7 @@ export const ABOUT = {
       id: 'val-circular',
       title: 'Ekonomi Sirkular',
       description:
-        'Rantai nilai yang menutup siklus: dari residu alami, pengolahan arang aktif, wadah kriya, hingga isi ulang berkala tanpa limbah kemasan baru.',
+        'Rantai nilai yang menutup siklus: menyerap limbah dari pelaku UMKM dan industri hilir, memprosesnya menjadi arang aktif murni, hingga dikemas dalam wadah kriya tanpa limbah baru.',
     },
     {
       id: 'val-voc',

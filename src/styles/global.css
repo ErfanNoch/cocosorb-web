@@ -309,19 +309,21 @@ a {
 /* Elemen dengan .reveal dimulai invisible, JS tambahkan .revealed */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(20px);
+  will-change: opacity, transform;
   transition:
-    opacity var(--duration-slow) var(--ease-smooth),
-    transform var(--duration-slow) var(--ease-smooth);
+    opacity 500ms var(--ease-smooth),
+    transform 500ms var(--ease-smooth);
 }
 .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
-.reveal.revealed.delay-100 { transition-delay: 100ms; }
-.reveal.revealed.delay-200 { transition-delay: 200ms; }
-.reveal.revealed.delay-300 { transition-delay: 300ms; }
-.reveal.revealed.delay-400 { transition-delay: 400ms; }
+.reveal.revealed.delay-100 { transition-delay: 80ms; }
+.reveal.revealed.delay-200 { transition-delay: 160ms; }
+.reveal.revealed.delay-300 { transition-delay: 240ms; }
+.reveal.revealed.delay-400 { transition-delay: 320ms; }
 
 /* ── Texture Overlays ──────────────────────────────────────── */
 /* Subtle grain texture untuk warmth organik */

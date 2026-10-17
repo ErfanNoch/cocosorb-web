@@ -74,17 +74,17 @@ import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
     left: 0;
     right: 0;
     z-index: 100;
+    transform: translateZ(0);
     transition:
-      background-color 300ms var(--ease-smooth),
-      box-shadow 300ms var(--ease-smooth),
-      backdrop-filter 300ms var(--ease-smooth);
+      background-color 200ms ease,
+      box-shadow 200ms ease;
   }
 
   .navbar.scrolled {
-    background-color: rgba(248, 246, 242, 0.92);
-    backdrop-filter: blur(20px) saturate(1.6);
-    -webkit-backdrop-filter: blur(20px) saturate(1.6);
-    box-shadow: 0 1px 0 var(--color-mist), 0 4px 32px rgba(31, 33, 36, 0.05);
+    background-color: rgba(248, 246, 242, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--color-mist), 0 4px 20px rgba(31, 33, 36, 0.04);
   }
 
   .navbar__inner {
@@ -254,9 +254,14 @@ import { BRAND, NAV_LINKS, CONTACT } from '../config/site';
   const toggle = document.getElementById('nav-toggle') as HTMLButtonElement | null;
   const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
 
-  // Sticky scroll
+  // Sticky scroll - state guard to avoid redundant DOM operations
+  let isScrolled = false;
   window.addEventListener('scroll', () => {
-    navbar?.classList.toggle('scrolled', window.scrollY > 16);
+    const shouldScroll = window.scrollY > 20;
+    if (shouldScroll !== isScrolled) {
+      isScrolled = shouldScroll;
+      navbar?.classList.toggle('scrolled', isScrolled);
+    }
   }, { passive: true });
 
   // Mobile toggle

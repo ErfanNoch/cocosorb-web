@@ -159,12 +159,14 @@ import { BRAND, HERO } from "../../config/site";
     inset: 0;
     pointer-events: none;
     overflow: hidden;
+    contain: strict;
   }
 
   .hero__bg-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
+    transform: translateZ(0);
+    pointer-events: none;
   }
 
   .hero__bg-orb--warm {
@@ -387,9 +389,7 @@ import { BRAND, HERO } from "../../config/site";
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    background-color: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background-color: #FFFFFF;
     border: 1px solid var(--color-mist);
     border-radius: var(--radius-pill);
     padding: 0.55rem 1rem;
@@ -397,9 +397,10 @@ import { BRAND, HERO } from "../../config/site";
     font-size: 0.78125rem;
     font-weight: 500;
     color: var(--color-charcoal);
-    box-shadow: 0 8px 24px rgba(31, 33, 36, 0.1);
+    box-shadow: 0 8px 24px rgba(31, 33, 36, 0.08);
     white-space: nowrap;
     z-index: 2;
+    will-change: transform;
   }
 
   .hero__pill--top {
